@@ -828,37 +828,6 @@ function removePantryItem(item){
 return date.toISOString().replace(/[-:]/g,"").split(".")[0] + "Z"
 }
    
-function showPlannerSettings(){
-
-  document.getElementById("settingsLunchesEnabled").checked =
-    plannerSettings.lunchesEnabled;
-  const savedTakeoutDays =
-  plannerSettings.takeoutDays || [plannerSettings.takeoutDay || "Tuesday"];
-
-document.querySelectorAll(".settingsTakeoutDay").forEach(box => {
-  box.checked = savedTakeoutDays.includes(box.value);
-});
-
-  updateTakeoutDaysSummary();
-   
-  document.getElementById("settingsCalendarHour").value =
-  plannerSettings.calendarHour ?? 18;
-
-document.getElementById("settingsCalendarDuration").value =
-  plannerSettings.calendarDurationHours ?? 1;
-  document.getElementById("settingsProteinLimit").value =
-  plannerSettings.proteinLimit ?? 3;
-
-document.getElementById("settingsHistoryLength").value =
-  plannerSettings.historyLength ?? 24;
-  document.getElementById("settingsWeekStartDay").value =
-  plannerSettings.weekStartDay || "Thursday";
-  document.getElementById("plannerSettingsPanel").style.display = "block";
-}
-
-function hidePlannerSettings(){
-  document.getElementById("plannerSettingsPanel").style.display = "none";
-}
 
 function updateTakeoutDaysSummary(){
 
