@@ -633,19 +633,6 @@ URL.revokeObjectURL(url)
 
 }
 
-function getNextThursday(){
-
-const today = new Date()
-const day = today.getDay() // 0 = Sunday
-
-const THURSDAY = 4
-
-let diff = THURSDAY - day
-
-if(diff <= 0){
-  diff += 7
-}
-
 const nextThursday = new Date(today)
 nextThursday.setDate(today.getDate() + diff)
 nextThursday.setHours(0,0,0,0)
