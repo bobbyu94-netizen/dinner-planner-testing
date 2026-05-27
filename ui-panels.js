@@ -83,3 +83,7 @@ function closeFavorites(){
 function hideMealPreferences(){
   document.getElementById("mealPreferencesPanel").style.display = "none";
 }
+
+function closePantry(){
+  document.getElementById("pantryPanel").style.display = "none"
+}
