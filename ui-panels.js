@@ -59,3 +59,19 @@ document.getElementById("settingsHistoryLength").value =
 function hidePlannerSettings(){
   document.getElementById("plannerSettingsPanel").style.display = "none";
 }
+
+function showTakeoutDaysPanel(){
+
+  const savedTakeoutDays =
+    plannerSettings.takeoutDays || [plannerSettings.takeoutDay || "Tuesday"];
+
+  document.querySelectorAll(".settingsTakeoutDay").forEach(box => {
+    box.checked = savedTakeoutDays.includes(box.value);
+  });
+
+  document.getElementById("takeoutDaysPanel").style.display = "block";
+}
+
+function hideTakeoutDaysPanel(){
+  document.getElementById("takeoutDaysPanel").style.display = "none";
+}
