@@ -608,21 +608,6 @@ function generateLunches(){
   }
 }
    
-function showPantry(){
-
-  const quickItems = [
-    "Chicken",
-    "Ground beef",
-    "Shrimp",
-    "Bacon",
-    "Rice",
-    "Milk",
-    "Potatoes",
-    "Lettuce",
-    "Tomatoes",
-    "Cheese"
-  ];
-
   let quickHtml = "<h4>Quick Add</h4><div style='display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;'>";
 
   quickItems.forEach(item => {
