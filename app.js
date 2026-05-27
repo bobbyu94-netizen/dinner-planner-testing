@@ -583,10 +583,6 @@ function showFavorites(){
   panel.style.display = "block";
 }
 
-function closeFavorites(){
-  document.getElementById("favoritesPanel").style.display = "none";
-}
-
 function removeFavorite(meal){
   favorites = favorites.filter(m => m !== meal);
   localStorage.setItem("favorites", JSON.stringify(favorites));
