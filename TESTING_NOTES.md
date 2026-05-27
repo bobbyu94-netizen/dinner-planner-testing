@@ -11,3 +11,4 @@ Use this file to track simple checks before moving approved changes to the live 
 - Test the affected menu or feature on iPhone.
 - Confirm the live repo `bobbyu94-netizen/dinner-planner` was not changed.
 - Record any bugs or follow-up ideas in GitHub issues before moving changes live.
+- Confirm Testing Version label is visible on the testing app.
