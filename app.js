@@ -961,22 +961,6 @@ function pickLunch(){
   render();
 }
    
-function showMainMenu(){
-  document.getElementById("mainMenuPanel").style.display = "block";
-}
-
-function hideMainMenu(){
-  document.getElementById("mainMenuPanel").style.display = "none";
-}
-   
- function showCalendarPanel(){
-  document.getElementById("calendarPanel").style.display = "block";
-}
-
-function hideCalendarPanel(){
-  document.getElementById("calendarPanel").style.display = "none";
-}
-
   function showMealPreferences(){
 
   const proteins = [
