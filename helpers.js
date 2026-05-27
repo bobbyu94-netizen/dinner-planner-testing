@@ -1,3 +1,7 @@
+function r(arr){
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function getMealId(meal){
   return meal.id || meal.meal;
 }
