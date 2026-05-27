@@ -1,5 +1,3 @@
-<script>
-
 
 let currentPlan = [];
 let lunchPlan = [];  
@@ -1066,4 +1064,4 @@ localStorage.setItem("dietRestrictions", JSON.stringify(dietRestrictions));
   if (!loadSharedWeek()) {
   generate();
 }
-</script>
+
