@@ -440,20 +440,7 @@ function toggleLock(day){
   render();
 }
 
-
-
 let menuDay = null;
-
-
-function openMenu(day){
-  menuDay = day;
-  document.getElementById("menu").style.display = "block";
-}
-
-function closeMenu(){
-  document.getElementById("menu").style.display = "none";
-}
-
 function favoriteMeal(day){
   const d = currentPlan.find(x => x.day === day);
   if(!d || d.takeout) return;
@@ -577,11 +564,6 @@ function confirmMove(toDay){
   closeMove();
   render();
 }
-
-function closeMove(){
-  document.getElementById("movePanel").style.display = "none";
-}
-   
    
 function showFavorites(){
   const panel = document.getElementById("favoritesPanel");
