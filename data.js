@@ -162,3 +162,20 @@ const LUNCHES = [
   "McDonald's","Chick-fil-A","Chili's","Wendy's","Joey's",
   "Subs","Publix Chicken","Chinese","Mexican Food Truck","Slim Chickens"
 ];
+
+const DEFAULT_PLANNER_SETTINGS = {
+  lunchesEnabled: true,
+  takeoutDay: "Tuesday",
+  takeoutDays: ["Tuesday"],
+  calendarHour: 18,
+  calendarDurationHours: 1,
+  proteinLimit: 3,
+  historyLength: 24,
+  weekStartDay: "Thursday"
+};
+
+const RESTRICTED_INGREDIENTS = {
+  no_pork:["pork","bacon","ham","sausage","hot dogs","ribs","andouille"],
+  no_red_meat:["ground beef","beef","steak","roast","cubed steak"],
+  no_seafood:["shrimp","salmon","fish","crab","seafood"]
+};
