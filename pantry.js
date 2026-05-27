@@ -10,3 +10,18 @@ function usePantryItemsForMeal(day){
 
   localStorage.setItem("pantry", JSON.stringify(pantry));
 }
+
+function showPantry(){
+
+  const quickItems = [
+    "Chicken",
+    "Ground beef",
+    "Shrimp",
+    "Bacon",
+    "Rice",
+    "Milk",
+    "Potatoes",
+    "Lettuce",
+    "Tomatoes",
+    "Cheese"
+  ];
