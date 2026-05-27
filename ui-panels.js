@@ -79,3 +79,7 @@ function hideTakeoutDaysPanel(){
 function closeFavorites(){
   document.getElementById("favoritesPanel").style.display = "none";
 }
+
+function hideMealPreferences(){
+  document.getElementById("mealPreferencesPanel").style.display = "none";
+}
