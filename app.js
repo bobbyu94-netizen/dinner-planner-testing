@@ -957,10 +957,6 @@ restrictions.forEach(r => {
   document.getElementById("mealPreferencesPanel").style.display = "block";
 }
 
-function hideMealPreferences(){
-  document.getElementById("mealPreferencesPanel").style.display = "none";
-}
-
 function saveMealPreferences(){
 
   const checked = document.querySelectorAll("#proteinOptions input:checked");
