@@ -779,9 +779,6 @@ function showPantry(){
     document.getElementById("pantryInput").focus();
   }, 100);
 }
-function closePantry(){
-  document.getElementById("pantryPanel").style.display = "none"
-}
 
 function addPantryItem(){
 
