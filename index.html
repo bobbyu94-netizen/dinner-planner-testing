@@ -34,7 +34,7 @@ ul{margin:8px 0 7px 10px;}
   </button>
 
 </div>
-  
+   
 <div id="planner"></div>
 
 <div class="panel">
@@ -201,7 +201,7 @@ const LUNCHES = [
   "Fish Sticks",
   "Something in a Can",
 ];
-  
+   
   const TAKEOUT = [
   "McDonald's","Chick-fil-A","Chili's","Wendy's","Joey's",
   "Subs","Publix Chicken","Chinese","Mexican Food Truck","Slim Chickens"
@@ -243,7 +243,7 @@ let dietRestrictions = JSON.parse(localStorage.getItem("dietRestrictions") || "[
 let plannerSettings = JSON.parse(
   localStorage.getItem("plannerSettings")
 ) || DEFAULT_PLANNER_SETTINGS;
-  
+   
 function getHistory(){
   return JSON.parse(localStorage.getItem("mealHistory") || "[]");
 }
@@ -287,7 +287,7 @@ function sideAllowedByDiet(sideName){
   const items = SIDE_ITEMS[sideName] || [];
   return !containsRestrictedIngredient(items);
 }
-  
+   
 function pickMeal(usedMeals, history, proteinCount){
 
   let options = MEALS.filter(m =>
@@ -319,7 +319,7 @@ function pickMeal(usedMeals, history, proteinCount){
     enabledProteins.includes(m.protein) &&
     mealAllowedByDiet(m)
   );
-}
+ }
 
   // Favor favorites
   let favOptions = options.filter(m => favorites.includes(m.meal))
@@ -479,14 +479,14 @@ function usePantryItemsForMeal(day){
 
   localStorage.setItem("pantry", JSON.stringify(pantry));
 }
-  
+   
   function categorize(item){
   const s = item.toLowerCase();
 
   if (
     s.includes("frozen")
     ) return "Frozen";
-  
+   
   if (
     s.includes("beef") || s.includes("chicken") || s.includes("pork") ||
     s.includes("steak") || s.includes("shrimp") || s.includes("sausage") ||
@@ -512,7 +512,7 @@ function usePantryItemsForMeal(day){
     s.includes("breadcrumbs") || s.includes("mix") || s.includes("dumplings") || s.includes("buns") || s.includes("mac") || s.includes("kit") || s.includes("gravy") || s.includes("noodles") || s.includes("canned") || s.includes("box")
   ) return "Pantry";
 
-  
+   
 
   return "Other";
 }
@@ -564,7 +564,7 @@ html += `<div style="display:flex;flex-direction:column;width:44px;">
 </div>`
 
 html += `</div>`;
-   
+    
   });
 
   document.getElementById("planner").innerHTML = html;
@@ -798,8 +798,8 @@ function confirmMove(toDay){
 function closeMove(){
   document.getElementById("movePanel").style.display = "none";
 }
-  
-  
+   
+   
 function showFavorites(){
   const panel = document.getElementById("favoritesPanel");
   const list = document.getElementById("favoritesList");
@@ -923,7 +923,7 @@ nextThursday.setHours(0,0,0,0)
 
 return nextThursday
 }
-  
+   
 function generateLunches(){
 
   lunchPlan = [];
@@ -955,7 +955,7 @@ function generateLunches(){
     }
   }
 }
-  
+   
 function showPantry(){
 
   const quickItems = [
@@ -1050,7 +1050,7 @@ function quickAddPantryItem(item){
 
   showPantry();
 }
-  
+   
 function removePantryItem(item){
 
   pantry = pantry.filter(i => i !== item)
@@ -1058,11 +1058,11 @@ function removePantryItem(item){
 
   showPantry()
 }
-  
+   
    function formatICSDate(date){
 return date.toISOString().replace(/[-:]/g,"").split(".")[0] + "Z"
 }
-  
+   
 function showPlannerSettings(){
 
   document.getElementById("settingsLunchesEnabled").checked =
@@ -1075,7 +1075,7 @@ document.querySelectorAll(".settingsTakeoutDay").forEach(box => {
 });
 
   updateTakeoutDaysSummary();
-  
+   
   document.getElementById("settingsCalendarHour").value =
   plannerSettings.calendarHour ?? 18;
 
@@ -1137,7 +1137,7 @@ function saveTakeoutDaysSelection(){
   updateTakeoutDaysSummary();
   hideTakeoutDaysPanel();
 }
-  
+   
 function savePlannerSettings(){
 
   plannerSettings.lunchesEnabled =
@@ -1176,11 +1176,11 @@ plannerSettings.historyLength =
 
   alert("Settings saved 👍");
 }
-  
+   
 function pickLunch(){
   return r(LUNCHES);
 }  
-  
+   
   function setDateNight(day){
 
   const index = currentPlan.findIndex(d => d.day === day);
@@ -1195,7 +1195,7 @@ function pickLunch(){
   closeMenu();
   render();
 }
-  
+   
 function showMainMenu(){
   document.getElementById("mainMenuPanel").style.display = "block";
 }
@@ -1203,7 +1203,7 @@ function showMainMenu(){
 function hideMainMenu(){
   document.getElementById("mainMenuPanel").style.display = "none";
 }
-  
+   
  function showCalendarPanel(){
   document.getElementById("calendarPanel").style.display = "block";
 }
@@ -1254,7 +1254,7 @@ restrictions.forEach(r => {
     </label>
   `;
 });
-    
+     
   document.getElementById("proteinOptions").innerHTML = html;
   document.getElementById("mealPreferencesPanel").style.display = "block";
 }
@@ -1282,7 +1282,7 @@ localStorage.setItem("dietRestrictions", JSON.stringify(dietRestrictions));
 
   hideMealPreferences();
 }
-  
+   
   if (!loadSharedWeek()) {
   generate();
 }
@@ -1297,7 +1297,7 @@ localStorage.setItem("dietRestrictions", JSON.stringify(dietRestrictions));
   <div onclick="hideMainMenu(); showPlannerSettings();" style="padding:14px;border-bottom:1px solid #eee;">⚙️ Planner Settings</div>
   <div onclick="hideMainMenu();" style="padding:14px;color:red;">Close</div>
 </div>
-  
+   
   <div id="menu" style="display:none;position:fixed;left:0;right:0;bottom:0;background:white;border-top-left-radius:16px;border-top-right-radius:16px;padding:16px;box-shadow:0 -4px 16px rgba(0,0,0,.2);z-index:1000;">
   <div onclick="favoriteMeal(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">⭐ Favorite</div>
   <div onclick="skipMeal(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">🚫 Skip</div>
@@ -1369,7 +1369,7 @@ style="display:none;position:fixed;inset:0;background:white;padding:20px;overflo
   <button class="secondary" onclick="hideTakeoutDaysPanel()">Cancel</button>
 
 </div>
-  
+   
   <div id="plannerSettingsPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1010;">
   <h3>Planner Settings</h3>
 
@@ -1450,6 +1450,9 @@ style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1p
 
   <button onclick="savePlannerSettings()">Save Settings</button>
   <button class="secondary" onclick="hidePlannerSettings()">Cancel</button>
+  <div style="font-size:12px;color:#6b7280;text-align:center;margin-top:10px;">
+    Version 1.0.2
+  </div>
 </div>
 
   <div id="mealPreferencesPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1006;">
@@ -1461,7 +1464,7 @@ style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1p
   <button onclick="saveMealPreferences()">Save Preferences</button>
   <button class="secondary" onclick="hideMealPreferences()">Cancel</button>
 </div>
-  
+   
 <div id="pantryPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1003;">
 
 <h3>Use Soon</h3>
@@ -1496,6 +1499,6 @@ style="width:100%;padding:14px;margin-bottom:10px;font-size:16px;border:2px soli
 <button onclick="closeMove()">Cancel</button>
 
 </div>
-  
+   
 </body>
 </html>
