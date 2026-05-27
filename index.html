@@ -54,16 +54,7 @@ let enabledProteins = JSON.parse(
 
 let dietRestrictions = JSON.parse(localStorage.getItem("dietRestrictions") || "[]");
 
-  const DEFAULT_PLANNER_SETTINGS = {
-  lunchesEnabled: true,
-  takeoutDay: "Tuesday",
-  takeoutDays: ["Tuesday"],
-  calendarHour: 18,
-  calendarDurationHours: 1,
-  proteinLimit: 3,
-  historyLength: 24,
-  weekStartDay: "Thursday"
-};
+ 
 
 let plannerSettings = JSON.parse(
   localStorage.getItem("plannerSettings")
@@ -85,11 +76,6 @@ function canUseProtein(meal, proteinCount){
   return (proteinCount[meal.protein] || 0) < (plannerSettings.proteinLimit || 3);
 }
 
-const RESTRICTED_INGREDIENTS = {
-  no_pork:["pork","bacon","ham","sausage","hot dogs","ribs","andouille"],
-  no_red_meat:["ground beef","beef","steak","roast","cubed steak"],
-  no_seafood:["shrimp","salmon","fish","crab","seafood"]
-};
 
 function containsRestrictedIngredient(items){
   if(!items) return false;
