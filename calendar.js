@@ -42,3 +42,7 @@ let diff = THURSDAY - day
 if(diff <= 0){
   diff += 7
 }                  
+
+  function formatICSDate(date){
+return date.toISOString().replace(/[-:]/g,"").split(".")[0] + "Z"
+}
