@@ -772,11 +772,7 @@ function removePantryItem(item){
   showPantry()
 }
    
-   function formatICSDate(date){
-return date.toISOString().replace(/[-:]/g,"").split(".")[0] + "Z"
-}
-   
-
+ 
 function updateTakeoutDaysSummary(){
 
   const days =
