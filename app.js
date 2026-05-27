@@ -27,13 +27,6 @@ let plannerSettings = JSON.parse(
   localStorage.getItem("plannerSettings")
 ) || DEFAULT_PLANNER_SETTINGS;
    
-function getHistory(){
-  return JSON.parse(localStorage.getItem("mealHistory") || "[]");
-}
-function saveHistory(h){
-  localStorage.setItem("mealHistory", JSON.stringify(h));
-}
-
 function r(arr){
   return arr[Math.floor(Math.random() * arr.length)];
 }
