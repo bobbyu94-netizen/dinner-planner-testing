@@ -75,3 +75,7 @@ function showTakeoutDaysPanel(){
 function hideTakeoutDaysPanel(){
   document.getElementById("takeoutDaysPanel").style.display = "none";
 }
+
+function closeFavorites(){
+  document.getElementById("favoritesPanel").style.display = "none";
+}
