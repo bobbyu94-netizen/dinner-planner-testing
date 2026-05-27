@@ -7,3 +7,7 @@ function openMenu(day){
 function closeMenu(){
   document.getElementById("menu").style.display = "none";
 }
+
+function closeMove(){
+  document.getElementById("movePanel").style.display = "none";
+}
