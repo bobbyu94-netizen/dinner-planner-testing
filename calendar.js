@@ -29,3 +29,16 @@ currentPlan.forEach(d => {
       title += " + " + d.side
     }
   }
+
+  function getNextThursday(){
+
+const today = new Date()
+const day = today.getDay() // 0 = Sunday
+
+const THURSDAY = 4
+
+let diff = THURSDAY - day
+
+if(diff <= 0){
+  diff += 7
+}                  
