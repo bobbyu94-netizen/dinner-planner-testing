@@ -655,46 +655,8 @@ function generateLunches(){
     document.getElementById("pantryInput").focus();
   }, 100);
 }
-
-function addPantryItem(){
-
-  const input = document.getElementById("pantryInput");
-
-  const value = input.value.trim();
-
-  if(!value){
-    alert("Please enter an item");
-    return;
-  }
-
-  pantry.push(value);
-  localStorage.setItem("pantry", JSON.stringify(pantry));
-
-  input.value = "";
-
-  showPantry();
-}
-
-function quickAddPantryItem(item){
-
-  if(!pantry.some(p => p.toLowerCase() === item.toLowerCase())){
-    pantry.push(item);
-    localStorage.setItem("pantry", JSON.stringify(pantry));
-  }
-
-  showPantry();
-}
-   
-function removePantryItem(item){
-
-  pantry = pantry.filter(i => i !== item)
-  localStorage.setItem("pantry", JSON.stringify(pantry))
-
-  showPantry()
-}
-   
  
-function updateTakeoutDaysSummary(){
+ function updateTakeoutDaysSummary(){
 
   const days =
     plannerSettings.takeoutDays || [plannerSettings.takeoutDay || "Tuesday"];
