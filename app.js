@@ -588,6 +588,36 @@ function removeFavorite(meal){
   localStorage.setItem("favorites", JSON.stringify(favorites));
   showFavorites();
 }
+
+function showBlockedMeals(){
+  const panel = document.getElementById("blockedPanel");
+  const list = document.getElementById("blockedList");
+
+  if(!blocked.length){
+    list.innerHTML = "<p>No skipped meals yet.</p>";
+  } else {
+    list.innerHTML = blocked.map(mealKey => {
+      const meal = findMealByIdOrName(mealKey);
+      const displayName = meal ? meal.meal : mealKey;
+      const safeKey = String(mealKey).replace(/'/g, "\\'");
+
+      return `
+        <div style="padding:10px 0;border-bottom:1px solid #eee;">
+          ${displayName}
+          <button onclick="removeBlockedMeal('${safeKey}')" style="margin-top:8px;">Remove</button>
+        </div>
+      `;
+    }).join("");
+  }
+
+  panel.style.display = "block";
+}
+
+function removeBlockedMeal(mealKey){
+  blocked = blocked.filter(m => m !== mealKey);
+  localStorage.setItem("blocked", JSON.stringify(blocked));
+  showBlockedMeals();
+}
     
 function generateLunches(){
 
