@@ -249,7 +249,7 @@ if(plannerSettings.lunchesEnabled){
 
   render();
 }
-  
+   
   function categorize(item){
   const s = item.toLowerCase();
 
@@ -608,12 +608,11 @@ function generateLunches(){
   }
 }
   
-     
 function pickLunch(){
   return r(LUNCHES);
 }  
    
-  function setDateNight(day){
+function setDateNight(day){
 
   const index = currentPlan.findIndex(d => d.day === day);
 
@@ -627,31 +626,7 @@ function pickLunch(){
   closeMenu();
   render();
 }
-  
-  html += `<h4>Diet Restrictions</h4>`;
-
-const restrictions = [
-  ["no_pork", "No Pork"],
-  ["no_red_meat", "No Red Meat"],
-  ["no_seafood", "No Seafood"]
-];
-
-restrictions.forEach(r => {
-  const checked = dietRestrictions.includes(r[0]) ? "checked" : "";
-
-  html += `
-    <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-      <input type="checkbox" class="dietRestriction" value="${r[0]}" ${checked}>
-      ${r[1]}
-    </label>
-  `;
-});
-     
-  document.getElementById("proteinOptions").innerHTML = html;
-  document.getElementById("mealPreferencesPanel").style.display = "block";
-}
    
-  if (!loadSharedWeek()) {
+if (!loadSharedWeek()) {
   generate();
 }
-
