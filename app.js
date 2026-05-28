@@ -326,7 +326,6 @@ function toggleLock(day){
 }
 
 let menuDay = null;
-let moveFromDay = null;
 
 function showFavorites(){
   const panel = document.getElementById("favoritesPanel");
