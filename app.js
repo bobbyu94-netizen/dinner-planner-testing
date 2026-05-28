@@ -77,6 +77,7 @@ function pickMeal(usedMeals, history, proteinCount){
     enabledProteins.includes(m.protein) &&
     mealAllowedByDiet(m) &&
     !usedMeals.includes(m.meal) &&
+    !history.includes(m.id) &&
     !history.includes(m.meal) &&
     !blocked.includes(m.meal) &&
     canUseProtein(m, proteinCount)
@@ -249,7 +250,7 @@ if(plannerSettings.lunchesEnabled){
   lunchPlan = [];
 }
 
-  const newMeals = plan.filter(d => !d.takeout).map(d => d.meal);
+  const newMeals = plan.filter(d => !d.takeout).map(d => d.mealId || d.meal);
   const newHistory = history.concat(newMeals).slice(-(plannerSettings.historyLength || 24));
   saveHistory(newHistory);
 
