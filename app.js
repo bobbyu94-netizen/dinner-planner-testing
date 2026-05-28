@@ -693,32 +693,8 @@ function pickLunch(){
   closeMenu();
   render();
 }
-   
-  function showMealPreferences(){
-
-  const proteins = [
-    ["ground_beef", "Ground Beef"],
-    ["beef", "Beef"],
-    ["chicken", "Chicken"],
-    ["pork", "Pork"],
-    ["seafood", "Seafood"],
-    ["mixed", "Mixed"]
-  ];
-
-  let html = "";
-
-  proteins.forEach(p => {
-    const checked = enabledProteins.includes(p[0]) ? "checked" : "";
-
-    html += `
-      <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-        <input type="checkbox" value="${p[0]}" ${checked}>
-        ${p[1]}
-      </label>
-    `;
-  });
-
-html += `<h4>Diet Restrictions</h4>`;
+  
+  html += `<h4>Diet Restrictions</h4>`;
 
 const restrictions = [
   ["no_pork", "No Pork"],
