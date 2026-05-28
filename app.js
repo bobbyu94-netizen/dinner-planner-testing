@@ -680,7 +680,31 @@ function setDateNight(day){
   closeMenu();
   render();
 }
-   
+
+function normalizeMealKeyList(list){
+  if(!Array.isArray(list)) return [];
+
+  const normalized = list.map(value => {
+    const meal = findMealByIdOrName(value);
+    return meal ? meal.id : value;
+  });
+
+  return [...new Set(normalized)];
+}
+
+function normalizeStoredMealKeys(){
+  favorites = normalizeMealKeyList(favorites);
+  blocked = normalizeMealKeyList(blocked);
+
+  const history = normalizeMealKeyList(getHistory());
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  localStorage.setItem("blocked", JSON.stringify(blocked));
+  saveHistory(history);
+}
+
+normalizeStoredMealKeys();
+
 if (!loadSharedWeek()) {
   generate();
 }
