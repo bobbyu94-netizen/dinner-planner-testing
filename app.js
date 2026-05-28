@@ -182,6 +182,7 @@ function generate(){
 
     plan.push({
       day,
+      mealId: meal.id,
       meal: meal.meal,
       items: meal.items,
       side,
@@ -479,6 +480,7 @@ function regenerateDay(day){
 
   currentPlan[index] = {
     day,
+    mealId: meal.id,
     meal: meal.meal,
     items: meal.items,
     side,
@@ -529,6 +531,7 @@ function confirmMove(toDay){
 
   const fromContent = {
     takeout: fromEntry.takeout,
+    mealId: fromEntry.mealId,
     meal: fromEntry.meal,
     items: fromEntry.items,
     side: fromEntry.side,
@@ -538,6 +541,7 @@ function confirmMove(toDay){
 
   const toContent = {
     takeout: toEntry.takeout,
+    mealId: toEntry.mealId,
     meal: toEntry.meal,
     items: toEntry.items,
     side: toEntry.side,
