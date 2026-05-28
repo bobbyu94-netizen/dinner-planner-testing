@@ -716,26 +716,6 @@ restrictions.forEach(r => {
   document.getElementById("proteinOptions").innerHTML = html;
   document.getElementById("mealPreferencesPanel").style.display = "block";
 }
-
-function saveMealPreferences(){
-
-  const checked = document.querySelectorAll("#proteinOptions input:checked");
-
-  enabledProteins = Array.from(checked).map(x => x.value);
-
-  if(!enabledProteins.length){
-    alert("Please leave at least one protein enabled.");
-    return;
-  }
-
-  localStorage.setItem("enabledProteins", JSON.stringify(enabledProteins));
-
-  const restrictionChecks = document.querySelectorAll(".dietRestriction:checked");
-dietRestrictions = Array.from(restrictionChecks).map(x => x.value);
-localStorage.setItem("dietRestrictions", JSON.stringify(dietRestrictions));
-
-  hideMealPreferences();
-}
    
   if (!loadSharedWeek()) {
   generate();
