@@ -107,7 +107,7 @@ function pickMeal(usedMeals, history, proteinCount){
  }
 
   // Favor favorites
-  let favOptions = options.filter(m => favorites.includes(m.meal))
+  let favOptions = options.filter(m => favorites.includes(m.id) || favorites.includes(m.meal))
 
   if(favOptions.length && Math.random() < 0.6){
     options = favOptions
@@ -440,8 +440,10 @@ function favoriteMeal(day){
   const d = currentPlan.find(x => x.day === day);
   if(!d || d.takeout) return;
 
-  if(!favorites.includes(d.meal)){
-    favorites.push(d.meal);
+  const favoriteKey = d.mealId || d.meal;
+
+  if(!favorites.includes(favoriteKey)){
+    favorites.push(favoriteKey);
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }
 
@@ -572,12 +574,18 @@ function showFavorites(){
   if(!favorites.length){
     list.innerHTML = "<p>No favorites yet.</p>";
   } else {
-    list.innerHTML = favorites.map(m => `
-      <div style="padding:10px 0;border-bottom:1px solid #eee;">
-        ${m}
-        <button onclick="removeFavorite('${m.replace(/'/g, "\\'")}')" style="margin-top:8px;">Remove</button>
-      </div>
-    `).join("");
+    list.innerHTML = favorites.map(favoriteKey => {
+      const meal = findMealByIdOrName(favoriteKey);
+      const displayName = meal ? meal.meal : favoriteKey;
+      const safeKey = String(favoriteKey).replace(/'/g, "\\'");
+
+      return `
+        <div style="padding:10px 0;border-bottom:1px solid #eee;">
+          ${displayName}
+          <button onclick="removeFavorite('${safeKey}')" style="margin-top:8px;">Remove</button>
+        </div>
+      `;
+    }).join("");
   }
 
   panel.style.display = "block";
