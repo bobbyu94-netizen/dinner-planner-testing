@@ -260,45 +260,8 @@ if(plannerSettings.lunchesEnabled){
 
   render();
 }
-   
-  html += `</div>`
-
-html += `<div style="display:flex;flex-direction:column;width:44px;">
-  <button onclick="toggleLock('${d.day}')" style="height:50%;padding:0;margin:0 0 6px 0;background:white;color:#111827;border:1px solid #d1d5db;">${locked[d.day] ? "🔒" : "🔓"}</button>
-  <button onclick="openMenu('${d.day}')" style="height:50%;padding:0;margin:0;background:white;color:#111827;border:1px solid #d1d5db;font-size:20px;">⋮</button>
-</div>`
-
-html += `</div>`;
-    
-  });
-
-  document.getElementById("planner").innerHTML = html;
-
-  const unique = [...new Set(grocery)];
-  const groups = {};
-
-  unique.forEach(item => {
-    const cat = categorize(item);
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(item);
-  });
-
-  const order = ["Produce","Meat","Dairy","Pantry","Frozen","Other"];
-  let list = "";
-
-  order.forEach(cat => {
-    if (!groups[cat] || !groups[cat].length) return;
-    groups[cat].sort((a,b) => a.localeCompare(b));
-    list += `<h4>${cat}</h4><ul>`;
-    groups[cat].forEach(i => {
-      list += `<li>${i}</li>`;
-    });
-    list += `</ul>`;
-  });
-
-  document.getElementById("grocery").innerHTML = list || "<div class='small'>No items yet.</div>";
-}
-
+ 
+ 
 function copyShareLink(){
 
 try{
