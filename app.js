@@ -79,6 +79,7 @@ function pickMeal(usedMeals, history, proteinCount){
     !usedMeals.includes(m.meal) &&
     !history.includes(m.id) &&
     !history.includes(m.meal) &&
+    !blocked.includes(m.id) &&
     !blocked.includes(m.meal) &&
     canUseProtein(m, proteinCount)
   )
@@ -452,8 +453,10 @@ function skipMeal(day){
   const d = currentPlan.find(x => x.day === day);
   if(!d || d.takeout) return;
 
-  if(!blocked.includes(d.meal)){
-    blocked.push(d.meal);
+  const mealKey = d.mealId || d.meal;
+
+  if(!blocked.includes(mealKey)){
+    blocked.push(mealKey);
     localStorage.setItem("blocked", JSON.stringify(blocked));
   }
 
