@@ -148,9 +148,14 @@ function pickMeal(usedMeals, history, proteinCount){
   return chosen;
 }
 
-function pickSide(mealName, protein){
+function pickSide(meal, protein){
 
-  let pool = SIDE_OVERRIDES[mealName] || SIDE_GROUPS[protein] || [];
+  let pool =
+    SIDE_OVERRIDES[meal.id] ||
+    SIDE_OVERRIDES[meal.meal] ||
+    SIDE_OVERRIDES[meal] ||
+    SIDE_GROUPS[protein] ||
+    [];
 
   pool = pool.filter(side => sideAllowedByDiet(side));
 
@@ -178,7 +183,7 @@ function generate(){
     }
 
     const meal = pickMeal(usedMeals, history, proteinCount);
-    const side = meal.complete ? null : pickSide(meal.meal, meal.protein);
+    const side = meal.complete ? null : pickSide(meal, meal.protein);
 
     plan.push({
       day,
@@ -474,7 +479,7 @@ function regenerateDay(day){
     .filter(Boolean);
 
   const meal = pickMeal(usedMeals, history, proteinCount);
-  const side = meal.complete ? null : pickSide(meal.meal, meal.protein);
+  const side = meal.complete ? null : pickSide(meal, meal.protein);
 
   const index = currentPlan.findIndex(d => d.day === day);
 
