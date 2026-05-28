@@ -76,6 +76,7 @@ function pickMeal(usedMeals, history, proteinCount){
   let options = MEALS.filter(m =>
     enabledProteins.includes(m.protein) &&
     mealAllowedByDiet(m) &&
+    !usedMeals.includes(m.id) &&
     !usedMeals.includes(m.meal) &&
     !history.includes(m.id) &&
     !history.includes(m.meal) &&
@@ -88,6 +89,7 @@ function pickMeal(usedMeals, history, proteinCount){
     options = MEALS.filter(m =>
       enabledProteins.includes(m.protein) &&
       mealAllowedByDiet(m) &&
+      !usedMeals.includes(m.id) &&
       !usedMeals.includes(m.meal) &&
       canUseProtein(m, proteinCount)
     );
@@ -96,6 +98,7 @@ function pickMeal(usedMeals, history, proteinCount){
   if (!options.length) {
     options = MEALS.filter(m => enabledProteins.includes(m.protein) &&
       mealAllowedByDiet(m) &&
+      !usedMeals.includes(m.id) &&
       !usedMeals.includes(m.meal));
   }
 
@@ -178,7 +181,7 @@ function generate(){
       if (existing) {
         plan.push(existing);
         if (!existing.takeout && existing.meal) {
-          usedMeals.push(existing.meal);
+          usedMeals.push(existing.mealId || existing.meal);
         }
         return;
       }
@@ -472,7 +475,7 @@ function regenerateDay(day){
 
   currentPlan.forEach(d => {
     if(d.day !== day && d.meal){
-      const m = MEALS.find(x => x.meal === d.meal);
+      const m = findMealByIdOrName(d.mealId || d.meal);
       if(m && m.protein !== "mixed"){
         proteinCount[m.protein] = (proteinCount[m.protein] || 0) + 1;
       }
@@ -481,7 +484,7 @@ function regenerateDay(day){
 
   const usedMeals = currentPlan
     .filter(d => d.day !== day)
-    .map(d => d.meal)
+    .map(d => d.mealId || d.meal)
     .filter(Boolean);
 
   const meal = pickMeal(usedMeals, history, proteinCount);
