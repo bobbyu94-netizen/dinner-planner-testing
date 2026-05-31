@@ -309,72 +309,6 @@ function generate(){
 }
 
 
-function copyShareLink(){
-
-  try{
-
-    const json = JSON.stringify(currentPlan)
-
-    // encode safely
-    const encoded = btoa(unescape(encodeURIComponent(json)))
-
-    const url = location.origin + location.pathname + "#data=" + encoded
-
-    navigator.clipboard.writeText(url)
-
-    showToast("Share link copied 👍")
-
-  }catch(e){
-    showToast("Error creating link")
-  }
-
-}
-
-
-function sanitizePlanEntry(entry){
-  if(!entry || typeof entry !== "object") return null;
-  return {
-    day:       escapeHtml(entry.day),
-    meal:      escapeHtml(entry.meal),
-    mealId:    escapeHtml(entry.mealId),
-    takeout:   escapeHtml(entry.takeout),
-    side:      escapeHtml(entry.side),
-    items:     Array.isArray(entry.items)     ? entry.items.map(i => escapeHtml(i))     : [],
-    sideItems: Array.isArray(entry.sideItems) ? entry.sideItems.map(i => escapeHtml(i)) : [],
-    complete:  !!entry.complete,
-    leftovers: typeof entry.leftovers === "number" ? entry.leftovers : 0,
-    dateNight: !!entry.dateNight,
-  };
-}
-
-function loadSharedWeek(){
-
-  const hash = location.hash
-
-  if(!hash.startsWith("#data=")) return false
-
-  try{
-
-    const encoded = hash.replace("#data=","")
-
-    const json = decodeURIComponent(escape(atob(encoded)))
-
-    const data = JSON.parse(json)
-
-    if(Array.isArray(data)){
-      currentPlan = data.map(sanitizePlanEntry).filter(Boolean)
-      render()
-      return true
-    }
-
-  }catch(e){
-    console.log("Load failed", e)
-  }
-
-  return false
-
-}
-
 function toggleLock(day){
 
   const wasLocked = !!locked[day];
@@ -511,10 +445,8 @@ function normalizeStoredMealKeys(){
 
 normalizeStoredMealKeys();
 
-if (!loadSharedWeek()) {
-  if (!loadPlan()) {
-    generate();
-  } else {
-    render();
-  }
+if (!loadPlan()) {
+  generate();
+} else {
+  render();
 }
