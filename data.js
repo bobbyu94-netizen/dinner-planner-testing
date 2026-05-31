@@ -163,6 +163,7 @@ const TAKEOUT = [
 ];
 
 const DEFAULT_PLANNER_SETTINGS = {
+  version: 2,
   lunchesEnabled: true,
   takeoutDay: "Tuesday",
   takeoutDays: ["Tuesday"],

@@ -58,9 +58,11 @@ function regenerateDay(day){
     items: meal.items,
     side,
     sideItems: side ? (SIDE_ITEMS[side] || []) : [],
-    complete: !!meal.complete
+    complete: !!meal.complete,
+    leftovers: meal.leftovers || 0,
   };
 
+  savePlan();
   closeMenu();
   render();
 }

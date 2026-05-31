@@ -11,7 +11,9 @@ if(!startInput){
 
 const startDate = new Date(startInput + "T00:00:00")
 
-const dayOrder = ["Thursday","Friday","Saturday","Sunday","Monday","Tuesday","Wednesday"]
+const allDays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const startIndex = allDays.indexOf(plannerSettings.weekStartDay);
+const dayOrder = allDays.slice(startIndex).concat(allDays.slice(0, startIndex));
 
 currentPlan.forEach(d => {
 

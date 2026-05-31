@@ -1,32 +1,71 @@
 
 let currentPlan = [];
-let lunchPlan = [];  
+let lunchPlan = [];
 let locked = {};
 
-let favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
-let blocked = JSON.parse(localStorage.getItem("blocked") || "[]")
+function safeParseJSON(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw === null) return fallback;
+    return JSON.parse(raw);
+  } catch (e) {
+    console.warn("localStorage parse error for key:", key, e);
+    return fallback;
+  }
+}
 
-let pantry = JSON.parse(localStorage.getItem("pantry") || "[]")
+let favorites = safeParseJSON("favorites", []);
+let blocked = safeParseJSON("blocked", []);
+let pantry = safeParseJSON("pantry", []);
 
-let enabledProteins = JSON.parse(
-  localStorage.getItem("enabledProteins")
-) || [
+let enabledProteins = safeParseJSON("enabledProteins", [
   "ground_beef",
   "beef",
   "chicken",
   "pork",
   "seafood",
   "mixed"
-];
+]);
 
-let dietRestrictions = JSON.parse(localStorage.getItem("dietRestrictions") || "[]");
+let dietRestrictions = safeParseJSON("dietRestrictions", []);
 
- 
+let plannerSettings = safeParseJSON("plannerSettings", null);
 
-let plannerSettings = JSON.parse(
-  localStorage.getItem("plannerSettings")
-) || DEFAULT_PLANNER_SETTINGS;
-   
+if (!plannerSettings || plannerSettings.version !== DEFAULT_PLANNER_SETTINGS.version) {
+  plannerSettings = Object.assign({}, DEFAULT_PLANNER_SETTINGS, plannerSettings || {});
+  plannerSettings.version = DEFAULT_PLANNER_SETTINGS.version;
+}
+
+// Ensure every expected key has a value — guards against old stored objects missing new keys
+plannerSettings.lunchesEnabled   = plannerSettings.lunchesEnabled   ?? DEFAULT_PLANNER_SETTINGS.lunchesEnabled;
+plannerSettings.takeoutDays      = plannerSettings.takeoutDays      ?? DEFAULT_PLANNER_SETTINGS.takeoutDays;
+plannerSettings.takeoutDay       = plannerSettings.takeoutDay       ?? DEFAULT_PLANNER_SETTINGS.takeoutDay;
+plannerSettings.calendarHour     = plannerSettings.calendarHour     ?? DEFAULT_PLANNER_SETTINGS.calendarHour;
+plannerSettings.calendarDurationHours = plannerSettings.calendarDurationHours ?? DEFAULT_PLANNER_SETTINGS.calendarDurationHours;
+plannerSettings.proteinLimit     = plannerSettings.proteinLimit     ?? DEFAULT_PLANNER_SETTINGS.proteinLimit;
+plannerSettings.historyLength    = plannerSettings.historyLength    ?? DEFAULT_PLANNER_SETTINGS.historyLength;
+plannerSettings.weekStartDay     = plannerSettings.weekStartDay     ?? DEFAULT_PLANNER_SETTINGS.weekStartDay;
+
+function savePlan() {
+  localStorage.setItem("currentPlan", JSON.stringify(currentPlan));
+  localStorage.setItem("lunchPlan", JSON.stringify(lunchPlan));
+  localStorage.setItem("locked", JSON.stringify(locked));
+}
+
+function loadPlan() {
+  const savedPlan = safeParseJSON("currentPlan", null);
+  const savedLunch = safeParseJSON("lunchPlan", null);
+  const savedLocked = safeParseJSON("locked", null);
+
+  if (Array.isArray(savedPlan) && savedPlan.length) {
+    currentPlan = savedPlan;
+    lunchPlan = Array.isArray(savedLunch) ? savedLunch : [];
+    locked = (savedLocked && typeof savedLocked === "object") ? savedLocked : {};
+    return true;
+  }
+  return false;
+}
+
 function r(arr){
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -45,7 +84,7 @@ function findMealByIdOrName(value){
 
 function canUseProtein(meal, proteinCount){
   if (meal.protein === "mixed") return true;
-  return (proteinCount[meal.protein] || 0) < (plannerSettings.proteinLimit || 3);
+  return (proteinCount[meal.protein] || 0) < plannerSettings.proteinLimit;
 }
 
 
@@ -70,7 +109,7 @@ function sideAllowedByDiet(sideName){
   const items = SIDE_ITEMS[sideName] || [];
   return !containsRestrictedIngredient(items);
 }
-   
+
 function pickMeal(usedMeals, history, proteinCount){
 
   let options = MEALS.filter(m =>
@@ -102,12 +141,12 @@ function pickMeal(usedMeals, history, proteinCount){
       !usedMeals.includes(m.meal));
   }
 
- if (!options.length) {
-  options = MEALS.filter(m =>
-    enabledProteins.includes(m.protein) &&
-    mealAllowedByDiet(m)
-  );
- }
+  if (!options.length) {
+    options = MEALS.filter(m =>
+      enabledProteins.includes(m.protein) &&
+      mealAllowedByDiet(m)
+    );
+  }
 
   // Favor favorites
   let favOptions = options.filter(m => favorites.includes(m.id) || favorites.includes(m.meal))
@@ -116,7 +155,7 @@ function pickMeal(usedMeals, history, proteinCount){
     options = favOptions
   }
 
-  // 🥫 Pantry scoring
+  // Pantry scoring
   let scored = options.map(m => {
 
     let matches = 0
@@ -198,117 +237,116 @@ function generate(){
       side,
       sideItems: side ? (SIDE_ITEMS[side] || []) : [],
       complete: !!meal.complete,
-      leftovers: meal.leftovers ||0,
+      leftovers: meal.leftovers || 0,
     });
   }
 
   const allDays = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday"
-];
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
 
-const startIndex = allDays.indexOf(
-  plannerSettings.weekStartDay || "Thursday"
-);
+  const startIndex = allDays.indexOf(plannerSettings.weekStartDay);
 
-const weekDays = allDays
-  .slice(startIndex)
-  .concat(allDays.slice(0, startIndex));
+  const weekDays = allDays
+    .slice(startIndex)
+    .concat(allDays.slice(0, startIndex));
 
-weekDays.forEach(day => {
+  weekDays.forEach(day => {
 
-  const takeoutDays =
-  plannerSettings.takeoutDays || [plannerSettings.takeoutDay || "Tuesday"];
+    const takeoutDays =
+      plannerSettings.takeoutDays || [plannerSettings.takeoutDay];
 
-if(takeoutDays.includes(day)){
+    if(takeoutDays.includes(day)){
 
-    if (locked[day] && currentPlan.length) {
-      const existing = currentPlan.find(d => d.day === day);
+      if (locked[day] && currentPlan.length) {
+        const existing = currentPlan.find(d => d.day === day);
 
-      if (existing) {
-        plan.push(existing);
+        if (existing) {
+          plan.push(existing);
+        } else {
+          plan.push({day, takeout:r(TAKEOUT)});
+        }
+
       } else {
         plan.push({day, takeout:r(TAKEOUT)});
       }
 
     } else {
-      plan.push({day, takeout:r(TAKEOUT)});
+      add(day);
     }
 
-  } else {
-    add(day);
-  }
-
-});
+  });
 
   currentPlan = plan;
 
-if(plannerSettings.lunchesEnabled){
-  generateLunches();
-} else {
-  lunchPlan = [];
-}
+  if(plannerSettings.lunchesEnabled){
+    generateLunches();
+  } else {
+    lunchPlan = [];
+  }
 
   const newMeals = plan.filter(d => !d.takeout).map(d => d.mealId || d.meal);
-  const newHistory = history.concat(newMeals).slice(-(plannerSettings.historyLength || 24));
+  const newHistory = history.concat(newMeals).slice(-plannerSettings.historyLength);
   saveHistory(newHistory);
 
+  savePlan();
   render();
 }
- 
- 
+
+
 function copyShareLink(){
 
-try{
+  try{
 
-const json = JSON.stringify(currentPlan)
+    const json = JSON.stringify(currentPlan)
 
-// encode safely
-const encoded = btoa(unescape(encodeURIComponent(json)))
+    // encode safely
+    const encoded = btoa(unescape(encodeURIComponent(json)))
 
-const url = location.origin + location.pathname + "#data=" + encoded
+    const url = location.origin + location.pathname + "#data=" + encoded
 
-navigator.clipboard.writeText(url)
+    navigator.clipboard.writeText(url)
 
-alert("Share link copied 👍")
+    alert("Share link copied 👍")
 
-}catch(e){
-alert("Error creating link")
-}
+  }catch(e){
+    alert("Error creating link")
+  }
 
 }
 
 
 function loadSharedWeek(){
 
-const hash = location.hash
+  const hash = location.hash
 
-if(!hash.startsWith("#data=")) return false
+  if(!hash.startsWith("#data=")) return false
 
-try{
+  try{
 
-const encoded = hash.replace("#data=","")
+    const encoded = hash.replace("#data=","")
 
-const json = decodeURIComponent(escape(atob(encoded)))
+    const json = decodeURIComponent(escape(atob(encoded)))
 
-const data = JSON.parse(json)
+    const data = JSON.parse(json)
 
-if(Array.isArray(data)){
-currentPlan = data
-render()
-return true
-}
+    if(Array.isArray(data)){
+      currentPlan = data
+      render()
+      return true
+    }
 
-}catch(e){
-console.log("Load failed", e)
-}
+  }catch(e){
+    console.log("Load failed", e)
+  }
 
-return false
+  return false
 
 }
 
@@ -322,6 +360,7 @@ function toggleLock(day){
     usePantryItemsForMeal(day);
   }
 
+  savePlan();
   render();
 }
 
@@ -386,7 +425,7 @@ function removeBlockedMeal(mealKey){
   localStorage.setItem("blocked", JSON.stringify(blocked));
   showBlockedMeals();
 }
-    
+
 function generateLunches(){
 
   lunchPlan = [];
@@ -418,11 +457,11 @@ function generateLunches(){
     }
   }
 }
-  
+
 function pickLunch(){
   return r(LUNCHES);
-}  
-   
+}
+
 function normalizeMealKeyList(list){
   if(!Array.isArray(list)) return [];
 
@@ -448,5 +487,9 @@ function normalizeStoredMealKeys(){
 normalizeStoredMealKeys();
 
 if (!loadSharedWeek()) {
-  generate();
+  if (!loadPlan()) {
+    generate();
+  } else {
+    render();
+  }
 }
