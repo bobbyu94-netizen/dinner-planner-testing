@@ -32,6 +32,7 @@ function showPlannerSettings(){
 
   document.getElementById("settingsLunchesEnabled").checked =
     plannerSettings.lunchesEnabled;
+  document.getElementById("settingsDarkMode").checked = (darkMode === "dark");
   const savedTakeoutDays =
   plannerSettings.takeoutDays || [plannerSettings.takeoutDay || "Tuesday"];
 

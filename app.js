@@ -3,6 +3,19 @@ let currentPlan = [];
 let lunchPlan = [];
 let locked = {};
 
+// Dark mode — "auto" respects system preference; "dark" forces dark
+let darkMode = localStorage.getItem("darkMode") || "auto";
+
+function applyDarkMode(mode) {
+  darkMode = mode;
+  if (mode === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+  }
+  localStorage.setItem("darkMode", mode);
+}
+
 function safeParseJSON(key, fallback) {
   try {
     const raw = localStorage.getItem(key);
@@ -391,7 +404,7 @@ function showFavorites(){
       const safeKey = String(favoriteKey).replace(/'/g, "\\'");
 
       return `
-        <div style="padding:10px 0;border-bottom:1px solid #eee;">
+        <div class="list-row">
           ${displayName}
           <button onclick="removeFavorite('${safeKey}')" style="margin-top:8px;">Remove</button>
         </div>
@@ -421,7 +434,7 @@ function showBlockedMeals(){
       const safeKey = String(mealKey).replace(/'/g, "\\'");
 
       return `
-        <div style="padding:10px 0;border-bottom:1px solid #eee;">
+        <div class="list-row">
           ${displayName}
           <button onclick="removeBlockedMeal('${safeKey}')" style="margin-top:8px;">Remove</button>
         </div>

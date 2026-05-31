@@ -8,6 +8,15 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
 <title>Dinner Planner</title>
+<!-- FOUC prevention: apply saved dark mode before CSS renders -->
+<script>
+  (function(){
+    try{
+      if(localStorage.getItem("darkMode") === "dark")
+        document.documentElement.setAttribute("data-theme","dark");
+    }catch(e){}
+  })();
+</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,7 +31,7 @@
     Generate Week
   </button>
 
-  <button onclick="showMainMenu()" style="width:auto;padding:10px 14px;font-size:22px;background:white;color:#111827;border:1px solid #d1d5db;">
+  <button onclick="showMainMenu()" class="secondary" style="width:auto;padding:10px 14px;font-size:22px;">
     ⋮
   </button>
 
@@ -38,38 +47,37 @@
 
 
 
-<div id="mainMenuPanel" style="display:none;position:fixed;right:12px;top:60px;background:white;border-radius:14px;padding:10px;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:1004;min-width:220px;">
-  <div onclick="hideMainMenu(); showFavorites();" style="padding:14px;border-bottom:1px solid #eee;">⭐ Manage Favorites</div>
-  <div onclick="hideMainMenu(); showBlockedMeals();" style="padding:14px;border-bottom:1px solid #eee;">🚫 Manage Skipped Meals</div>
-  <div onclick="hideMainMenu(); showPantry();" style="padding:14px;border-bottom:1px solid #eee;">🥫 Manage Pantry</div>
-  <div onclick="hideMainMenu(); showCalendarPanel();" style="padding:14px;border-bottom:1px solid #eee;">📅 Add Week to Calendar</div>
-  <div onclick="hideMainMenu(); copyShareLink();" style="padding:14px;border-bottom:1px solid #eee;">🔗 Copy Share Link</div>
-  <div onclick="hideMainMenu(); showMealPreferences();" style="padding:14px;border-bottom:1px solid #eee;">⚙️ Meal Preferences</div>
-  <div onclick="hideMainMenu(); showPlannerSettings();" style="padding:14px;border-bottom:1px solid #eee;">⚙️ Planner Settings</div>
-  <div onclick="hideMainMenu();" style="padding:14px;color:red;">Close</div>
+<div id="mainMenuPanel" class="main-menu-panel" style="display:none;position:fixed;right:12px;top:60px;border-radius:14px;padding:10px;z-index:1004;min-width:220px;">
+  <div class="menu-row" onclick="hideMainMenu(); showFavorites();">⭐ Manage Favorites</div>
+  <div class="menu-row" onclick="hideMainMenu(); showBlockedMeals();">🚫 Manage Skipped Meals</div>
+  <div class="menu-row" onclick="hideMainMenu(); showPantry();">🥫 Manage Pantry</div>
+  <div class="menu-row" onclick="hideMainMenu(); showCalendarPanel();">📅 Add Week to Calendar</div>
+  <div class="menu-row" onclick="hideMainMenu(); copyShareLink();">🔗 Copy Share Link</div>
+  <div class="menu-row" onclick="hideMainMenu(); showMealPreferences();">⚙️ Meal Preferences</div>
+  <div class="menu-row" onclick="hideMainMenu(); showPlannerSettings();">⚙️ Planner Settings</div>
+  <div class="menu-row-cancel" onclick="hideMainMenu();">Close</div>
 </div>
 
-<div id="menu" class="bottom-sheet" style="display:none;position:fixed;left:0;right:0;bottom:0;background:white;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -4px 16px rgba(0,0,0,.2);z-index:1000;">
-  <div onclick="favoriteMeal(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">⭐ Favorite</div>
-  <div onclick="skipMeal(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">🚫 Skip</div>
-  <div onclick="regenerateDay(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">🔄 Regenerate</div>
-  <div onclick="moveMeal(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">🔀 Move to another day</div>
-  <div onclick="setDateNight(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">❤️ Date Night</div>
-  <div onclick="closeMenu()" style="padding:14px;color:red;">Cancel</div>
+<div id="menu" class="bottom-sheet" style="display:none;position:fixed;left:0;right:0;bottom:0;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -4px 16px var(--shadow-md);z-index:1000;">
+  <div class="menu-row" onclick="favoriteMeal(menuDay)">⭐ Favorite</div>
+  <div class="menu-row" onclick="skipMeal(menuDay)">🚫 Skip</div>
+  <div class="menu-row" onclick="regenerateDay(menuDay)">🔄 Regenerate</div>
+  <div class="menu-row" onclick="moveMeal(menuDay)">🔀 Move to another day</div>
+  <div class="menu-row" onclick="setDateNight(menuDay)">❤️ Date Night</div>
+  <div class="menu-row-cancel" onclick="closeMenu()">Cancel</div>
 </div>
 
-<div id="calendarPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1005;">
+<div id="calendarPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1005;">
   <h3>Add Week to Calendar</h3>
 
   <label class="small">Choose the week start date:</label>
-  <input id="calendarStartDate" type="date" style="width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #d1d5db;font-size:16px;">
+  <input id="calendarStartDate" type="date" style="width:100%;padding:12px;margin:10px 0;font-size:16px;">
 
   <button onclick="exportToCalendar()">Export to Calendar</button>
   <button class="secondary" onclick="hideCalendarPanel()">Cancel</button>
 </div>
 
-<div id="takeoutDaysPanel" class="full-panel"
-style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1011;">
+<div id="takeoutDaysPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1011;">
 
   <h3>Choose Takeout Days</h3>
 
@@ -77,43 +85,14 @@ style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-inde
     Select one or more days for takeout.
   </p>
 
-  <div style="margin:10px 0 18px 0;border:1px solid #d1d5db;border-radius:10px;overflow:hidden;">
-
-    <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-      <input type="checkbox" class="settingsTakeoutDay" value="Monday">
-      Monday
-    </label>
-
-    <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-      <input type="checkbox" class="settingsTakeoutDay" value="Tuesday">
-      Tuesday
-    </label>
-
-    <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-      <input type="checkbox" class="settingsTakeoutDay" value="Wednesday">
-      Wednesday
-    </label>
-
-    <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-      <input type="checkbox" class="settingsTakeoutDay" value="Thursday">
-      Thursday
-    </label>
-
-    <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-      <input type="checkbox" class="settingsTakeoutDay" value="Friday">
-      Friday
-    </label>
-
-    <label style="display:block;padding:12px;border-bottom:1px solid #eee;">
-      <input type="checkbox" class="settingsTakeoutDay" value="Saturday">
-      Saturday
-    </label>
-
-    <label style="display:block;padding:12px;">
-      <input type="checkbox" class="settingsTakeoutDay" value="Sunday">
-      Sunday
-    </label>
-
+  <div class="settings-list">
+    <label><input type="checkbox" class="settingsTakeoutDay" value="Monday"> Monday</label>
+    <label><input type="checkbox" class="settingsTakeoutDay" value="Tuesday"> Tuesday</label>
+    <label><input type="checkbox" class="settingsTakeoutDay" value="Wednesday"> Wednesday</label>
+    <label><input type="checkbox" class="settingsTakeoutDay" value="Thursday"> Thursday</label>
+    <label><input type="checkbox" class="settingsTakeoutDay" value="Friday"> Friday</label>
+    <label><input type="checkbox" class="settingsTakeoutDay" value="Saturday"> Saturday</label>
+    <label><input type="checkbox" class="settingsTakeoutDay" value="Sunday"> Sunday</label>
   </div>
 
   <button onclick="saveTakeoutDaysSelection()">Save Takeout Days</button>
@@ -121,92 +100,81 @@ style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-inde
 
 </div>
 
-<div id="plannerSettingsPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1010;">
+<div id="plannerSettingsPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1010;">
   <h3>Planner Settings</h3>
 
   <p class="small">
     Adjust your planner defaults here. These settings only affect this device.
   </p>
 
-  <label style="display:block;padding:14px 0;border-bottom:1px solid #eee;">
+  <label class="setting-check-row">
     <input type="checkbox" id="settingsLunchesEnabled">
     Enable Lunch Planning
   </label>
 
- <label class="small">Takeout Days</label>
+  <label class="toggle-row" for="settingsDarkMode">
+    🌙 Dark Mode
+    <span class="toggle-switch">
+      <input type="checkbox" id="settingsDarkMode">
+      <span class="toggle-slider"></span>
+    </span>
+  </label>
 
-<div style="background:#f9fafb;border:1px solid #d1d5db;border-radius:10px;padding:12px;margin:10px 0 18px 0;">
-  <div id="takeoutDaysSummary" style="margin-bottom:10px;font-weight:600;">
-    Tuesday
+  <label class="small">Takeout Days</label>
+
+  <div class="settings-group">
+    <div id="takeoutDaysSummary" style="margin-bottom:10px;font-weight:600;">Tuesday</div>
+    <button type="button" onclick="showTakeoutDaysPanel()" class="secondary">Choose Takeout Days</button>
   </div>
 
-  <button type="button" onclick="showTakeoutDaysPanel()" class="secondary">
-    Choose Takeout Days
-  </button>
-</div>
+  <label class="small">Calendar Dinner Start Time</label>
 
-<label class="small">Calendar Dinner Start Time</label>
+  <select id="settingsCalendarHour" style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+    <option value="16">4:00 PM</option>
+    <option value="17">5:00 PM</option>
+    <option value="18">6:00 PM</option>
+    <option value="19">7:00 PM</option>
+    <option value="20">8:00 PM</option>
+  </select>
 
-<select id="settingsCalendarHour"
-style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1px solid #d1d5db;font-size:16px;">
+  <label class="small">Calendar Meal Duration</label>
 
-  <option value="16">4:00 PM</option>
-  <option value="17">5:00 PM</option>
-  <option value="18">6:00 PM</option>
-  <option value="19">7:00 PM</option>
-  <option value="20">8:00 PM</option>
+  <select id="settingsCalendarDuration" style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+    <option value="1">1 hour</option>
+    <option value="1.5">1.5 hours</option>
+    <option value="2">2 hours</option>
+  </select>
 
-</select>
+  <label class="small">Week Start Day</label>
 
-<label class="small">Calendar Meal Duration</label>
+  <select id="settingsWeekStartDay" style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+    <option>Monday</option>
+    <option>Tuesday</option>
+    <option>Wednesday</option>
+    <option>Thursday</option>
+    <option>Friday</option>
+    <option>Saturday</option>
+    <option>Sunday</option>
+  </select>
 
-<select id="settingsCalendarDuration"
-style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1px solid #d1d5db;font-size:16px;">
+  <label class="small">Protein Limit Per Week</label>
 
-  <option value="1">1 hour</option>
-  <option value="1.5">1.5 hours</option>
-  <option value="2">2 hours</option>
+  <input id="settingsProteinLimit" type="number" min="1" max="7"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
 
-</select>
+  <label class="small">Meal History Length</label>
 
-    <label class="small">Week Start Day</label>
-
-<select id="settingsWeekStartDay"
-style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1px solid #d1d5db;font-size:16px;">
-
-  <option>Monday</option>
-  <option>Tuesday</option>
-  <option>Wednesday</option>
-  <option>Thursday</option>
-  <option>Friday</option>
-  <option>Saturday</option>
-  <option>Sunday</option>
-
-</select>
-    <label class="small">Protein Limit Per Week</label>
-
-<input id="settingsProteinLimit"
-type="number"
-min="1"
-max="7"
-style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1px solid #d1d5db;font-size:16px;">
-
-<label class="small">Meal History Length</label>
-
-<input id="settingsHistoryLength"
-type="number"
-min="1"
-max="100"
-style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1px solid #d1d5db;font-size:16px;">
+  <input id="settingsHistoryLength" type="number" min="1" max="100"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
 
   <button onclick="savePlannerSettings()">Save Settings</button>
   <button class="secondary" onclick="hidePlannerSettings()">Cancel</button>
-  <div style="font-size:12px;color:#6b7280;text-align:center;margin-top:10px;">
+  <div style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:10px;">
     Version 1.0.2
   </div>
 </div>
 
-<div id="mealPreferencesPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1006;">
+<div id="mealPreferencesPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1006;">
   <h3>Meal Preferences</h3>
   <p class="small">Choose which proteins the planner can use.</p>
 
@@ -216,44 +184,44 @@ style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1p
   <button class="secondary" onclick="hideMealPreferences()">Cancel</button>
 </div>
 
-<div id="pantryPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1003;">
+<div id="pantryPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1003;">
 
-<h3>Use Soon</h3>
-<p class="small">Add ingredients you want the planner to prioritize.</p>
+  <h3>Use Soon</h3>
+  <p class="small">Add ingredients you want the planner to prioritize.</p>
 
   <div id="quickPantryItems"></div>
 
-<input id="pantryInput"
-placeholder="Type item here first (e.g. Chicken)"
-style="width:100%;padding:14px;margin-bottom:10px;font-size:16px;border:2px solid #2f6fed;border-radius:10px;"
->
+  <input id="pantryInput"
+    placeholder="Type item here first (e.g. Chicken)"
+    style="width:100%;padding:14px;margin-bottom:10px;font-size:16px;"
+  >
 
-<button onclick="addPantryItem()">Add Item</button>
+  <button onclick="addPantryItem()">Add Item</button>
 
-<div id="pantryList"></div>
+  <div id="pantryList"></div>
 
-<button onclick="closePantry()">Close</button>
+  <button onclick="closePantry()">Close</button>
 
 </div>
 
-<div id="favoritesPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1001;">
+<div id="favoritesPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1001;">
   <h3>Favorites</h3>
   <div id="favoritesList"></div>
   <button onclick="closeFavorites()">Close</button>
 </div>
 
-<div id="blockedPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1001;">
+<div id="blockedPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1001;">
   <h3>Skipped Meals</h3>
   <div id="blockedList"></div>
   <button onclick="closeBlockedPanel()">Close</button>
 </div>
 
-<div id="movePanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;z-index:1002;overflow:auto;">
+<div id="movePanel" class="full-panel" style="display:none;position:fixed;inset:0;z-index:1002;overflow:auto;">
 
-<h3>Move meal to:</h3>
-<div id="moveList"></div>
+  <h3>Move meal to:</h3>
+  <div id="moveList"></div>
 
-<button onclick="closeMove()">Cancel</button>
+  <button onclick="closeMove()">Cancel</button>
 
 </div>
 

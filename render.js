@@ -77,8 +77,8 @@ else {
 html += `</div>`
 
 html += `<div style="display:flex;flex-direction:column;width:44px;">
-  <button onclick="toggleLock('${d.day}')" style="height:50%;padding:0;margin:0 0 6px 0;background:white;color:#111827;border:1px solid #d1d5db;">${locked[d.day] ? "🔒" : "🔓"}</button>
-  <button onclick="openMenu('${d.day}')" style="height:50%;padding:0;margin:0;background:white;color:#111827;border:1px solid #d1d5db;font-size:20px;">⋮</button>
+  <button onclick="toggleLock('${d.day}')" class="icon-btn" style="height:50%;padding:0;margin:0 0 6px 0;">${locked[d.day] ? "🔒" : "🔓"}</button>
+  <button onclick="openMenu('${d.day}')" class="icon-btn" style="height:50%;padding:0;margin:0;font-size:20px;">⋮</button>
 </div>`
 
 html += `</div>`;

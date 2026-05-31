@@ -53,7 +53,7 @@ function showPantry(){
     pantryHtml += `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">`;
 
     groups[cat].forEach(item => {
-      pantryHtml += `<button data-item="${escapeHtml(item)}" onclick="removePantryItem(this.dataset.item)" style="width:auto;padding:8px 10px;margin:0;border-radius:20px;background:#f3f4f6;color:#111827;border:1px solid #d1d5db;font-size:14px;">
+      pantryHtml += `<button data-item="${escapeHtml(item)}" onclick="removePantryItem(this.dataset.item)" class="pantry-tag">
         ${escapeHtml(item)} ✕
       </button>`;
     });

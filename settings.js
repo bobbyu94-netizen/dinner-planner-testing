@@ -62,6 +62,10 @@ function savePlannerSettings(){
     JSON.stringify(plannerSettings)
   );
 
+  applyDarkMode(
+    document.getElementById("settingsDarkMode").checked ? "dark" : "auto"
+  );
+
   hidePlannerSettings();
 
   showToast("Settings saved 👍");

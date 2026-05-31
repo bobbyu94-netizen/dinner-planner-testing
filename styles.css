@@ -1,51 +1,308 @@
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui;background:#f6f7fb;padding:16px;padding-top:calc(16px + env(safe-area-inset-top, 0px));padding-bottom:calc(16px + env(safe-area-inset-bottom, 0px));color:#111827;}
-button{padding:14px;width:100%;margin-bottom:10px;border:none;border-radius:12px;background:#2f6fed;color:white;font-size:16px;}
-button.secondary{background:white;color:#111827;border:1px solid #d1d5db;}
-.day{background:white;padding:10px;margin-bottom:1px;border-radius:12px;cursor:pointer;-webkit-user-select:none;
-user-select:none;
--webkit-touch-callout:none;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);}
-.meal{font-weight:600;font-size:16px;}
-.side{color:#444;margin-top:4px;}
-.lock{font-size:12px;color:#888;margin-top:4px;}
-.panel{background:white;padding:8px;border-radius:12px;margin-top:5px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
-.small{font-size:13px;color:#6b7280;margin-top:4px;}
-h2,h3,h4{margin:0 0 10px 0;}
-ul{margin:8px 0 7px 10px;}
+/* ─── CSS Custom Properties (Light Mode Defaults) ─────────── */
+:root {
+  --bg:           #f6f7fb;
+  --surface:      #ffffff;
+  --surface-alt:  #f9fafb;
+  --surface-tag:  #f3f4f6;
+  --text:         #111827;
+  --text-2:       #444444;
+  --text-muted:   #6b7280;
+  --text-faint:   #888888;
+  --accent:       #2f6fed;
+  --accent-fg:    #ffffff;
+  --border:       #d1d5db;
+  --divider:      #eeeeee;
+  --danger:       #dc2626;
+  --shadow-sm:    rgba(0,0,0,.05);
+  --shadow-md:    rgba(0,0,0,.2);
+}
 
-/* Fullscreen panel safe area padding */
-.full-panel{
+/* ─── Automatic Dark Mode (system preference) ─────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:           #1c1c1e;
+    --surface:      #2c2c2e;
+    --surface-alt:  #3a3a3c;
+    --surface-tag:  #48484a;
+    --text:         #f2f2f7;
+    --text-2:       #d1d1d6;
+    --text-muted:   #aeaeb2;
+    --text-faint:   #8e8e93;
+    --accent:       #4a8ff5;
+    --accent-fg:    #ffffff;
+    --border:       #38383a;
+    --divider:      #38383a;
+    --danger:       #ff453a;
+    --shadow-sm:    rgba(0,0,0,.3);
+    --shadow-md:    rgba(0,0,0,.5);
+  }
+}
+
+/* ─── Manual Dark Mode Override (data-theme on <html>) ──────── */
+[data-theme="dark"] {
+  --bg:           #1c1c1e;
+  --surface:      #2c2c2e;
+  --surface-alt:  #3a3a3c;
+  --surface-tag:  #48484a;
+  --text:         #f2f2f7;
+  --text-2:       #d1d1d6;
+  --text-muted:   #aeaeb2;
+  --text-faint:   #8e8e93;
+  --accent:       #4a8ff5;
+  --accent-fg:    #ffffff;
+  --border:       #38383a;
+  --divider:      #38383a;
+  --danger:       #ff453a;
+  --shadow-sm:    rgba(0,0,0,.3);
+  --shadow-md:    rgba(0,0,0,.5);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui;
+  background: var(--bg);
+  padding: 16px;
+  padding-top:    calc(16px + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  color: var(--text);
+}
+
+button {
+  padding: 14px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: 16px;
+}
+
+button.secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* Form controls — base theming; layout kept inline where needed */
+select,
+input[type="number"],
+input[type="date"],
+input[type="text"] {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* ─── Day cards ──────────────────────────────────────────────── */
+.day {
+  background: var(--surface);
+  padding: 10px;
+  margin-bottom: 1px;
+  border-radius: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  box-shadow: 0 2px 8px var(--shadow-sm);
+}
+
+.meal  { font-weight: 600; font-size: 16px; }
+.side  { color: var(--text-2); margin-top: 4px; }
+.lock  { font-size: 12px; color: var(--text-faint); margin-top: 4px; }
+
+/* ─── Shopping list panel ────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  padding: 8px;
+  border-radius: 12px;
+  margin-top: 5px;
+  box-shadow: 0 2px 8px var(--shadow-sm);
+}
+
+.small { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+h2,h3,h4 { margin: 0 0 10px 0; }
+ul { margin: 8px 0 7px 10px; }
+
+/* ─── Fullscreen panels ──────────────────────────────────────── */
+.full-panel {
+  background: var(--surface);
   padding: 20px;
-  padding-top: calc(20px + env(safe-area-inset-top, 0px));
+  padding-top:    calc(20px + env(safe-area-inset-top, 0px));
   padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Bottom action sheet safe area padding */
-.bottom-sheet{
+/* ─── Bottom action sheet ────────────────────────────────────── */
+.bottom-sheet {
+  background: var(--surface);
   padding: 16px;
   padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Toast notification */
-.toast{
-  position:fixed;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-  left:50%;
-  transform:translateX(-50%) translateY(12px);
-  background:#111827;
-  color:white;
-  padding:12px 20px;
-  border-radius:24px;
-  font-size:14px;
-  z-index:9999;
-  opacity:0;
-  transition:opacity 0.25s ease, transform 0.25s ease;
-  white-space:nowrap;
-  pointer-events:none;
-  max-width:calc(100vw - 48px);
-  text-align:center;
+/* ─── Dropdown main menu panel ───────────────────────────────── */
+.main-menu-panel {
+  background: var(--surface);
+  box-shadow: 0 4px 16px var(--shadow-md);
 }
-.toast.toast-visible{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+
+/* ─── Menu / action sheet rows ───────────────────────────────── */
+.menu-row {
+  padding: 14px;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text);
+}
+
+.menu-row-cancel {
+  padding: 14px;
+  color: var(--danger);
+}
+
+/* ─── Settings panel elements ────────────────────────────────── */
+.setting-check-row {
+  display: block;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text);
+}
+
+.settings-group {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0 18px 0;
+}
+
+.settings-list {
+  margin: 10px 0 18px 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.settings-list label {
+  display: block;
+  padding: 12px;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text);
+}
+
+.settings-list label:last-child {
+  border-bottom: none;
+}
+
+/* ─── List rows (favorites, blocked meals) ───────────────────── */
+.list-row {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text);
+}
+
+/* ─── Icon buttons (lock / menu on day cards) ────────────────── */
+.icon-btn {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* ─── Pantry tag buttons ─────────────────────────────────────── */
+.pantry-tag {
+  width: auto;
+  padding: 8px 10px;
+  margin: 0;
+  border-radius: 20px;
+  background: var(--surface-tag);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+/* ─── Pantry text input ──────────────────────────────────────── */
+#pantryInput {
+  background: var(--surface);
+  color: var(--text);
+  border: 2px solid var(--accent) !important;
+  border-radius: 10px;
+}
+
+/* ─── Dark mode toggle switch (iOS style) ────────────────────── */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 51px;
+  height: 31px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 31px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  height: 27px;
+  width: 27px;
+  left: 2px;
+  bottom: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--accent);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+/* ─── Toast notification ─────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: rgba(20,20,20,0.92);
+  color: #f2f2f7;
+  padding: 12px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  max-width: calc(100vw - 48px);
+  text-align: center;
+}
+
+.toast.toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
