@@ -87,3 +87,7 @@ function hideMealPreferences(){
 function closePantry(){
   document.getElementById("pantryPanel").style.display = "none"
 }
+
+function closeBlockedPanel(){
+  document.getElementById("blockedPanel").style.display = "none";
+}

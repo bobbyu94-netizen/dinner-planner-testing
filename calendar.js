@@ -5,7 +5,7 @@ let events = ""
 const startInput = document.getElementById("calendarStartDate").value
 
 if(!startInput){
-  alert("Please choose the Thursday start date first.")
+  showToast("Please choose a start date first.")
   return
 }
 
@@ -73,26 +73,6 @@ hideCalendarPanel();
 
 URL.revokeObjectURL(url)
 
-}
-
-function getNextThursday(){
-
-const today = new Date()
-const day = today.getDay()
-
-const THURSDAY = 4
-
-let diff = THURSDAY - day
-
-if(diff <= 0){
-  diff += 7
-}
-
-const nextThursday = new Date(today)
-nextThursday.setDate(today.getDate() + diff)
-nextThursday.setHours(0,0,0,0)
-
-return nextThursday
 }
 
 function formatICSDate(date){

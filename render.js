@@ -43,30 +43,30 @@ function render(){
   html += `<div class="day" style="display:flex;justify-content:space-between;gap:10px;">`
 html += `<div style="flex:1;">`
     html += `<div style="display:flex;align-items:center;gap:8px;">
-  <h3 style="margin:0;">${d.day}</h3>
+  <h3 style="margin:0;">${escapeHtml(d.day)}</h3>
   ${locked[d.day] ? `<span class="lock">🔒 Locked</span>` : ""}
 </div>`;
     const lunch = lunchPlan.find(l => l.day === d.day);
 
 if(lunch){
-  html += `<div class="side">🥪 ${lunch.meal}</div>`;
+  html += `<div class="side">🥪 ${escapeHtml(lunch.meal)}</div>`;
 }
 
   if (d.dateNight) {
   html += `<div class="meal">❤️ Date Night</div>`;
 }
 else if (d.takeout) {
-  html += `<div class="meal">🍔 ${d.takeout}</div>`;
+  html += `<div class="meal">🍔 ${escapeHtml(d.takeout)}</div>`;
 }
 else {
-  html += `<div class="meal">🍽 ${d.meal}</div>`;
+  html += `<div class="meal">🍽 ${escapeHtml(d.meal)}</div>`;
 
   if(d.items){
     grocery.push(...d.items);
   }
 
   if (d.side) {
-    html += `<div class="side">🥗 ${d.side}</div>`;
+    html += `<div class="side">🥗 ${escapeHtml(d.side)}</div>`;
     if(d.sideItems){
       grocery.push(...d.sideItems);
     }

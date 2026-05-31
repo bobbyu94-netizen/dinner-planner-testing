@@ -66,10 +66,6 @@ function loadPlan() {
   return false;
 }
 
-function r(arr){
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
 function getMealId(meal){
   return meal.id || meal.meal;
 }
@@ -322,6 +318,22 @@ function copyShareLink(){
 }
 
 
+function sanitizePlanEntry(entry){
+  if(!entry || typeof entry !== "object") return null;
+  return {
+    day:       escapeHtml(entry.day),
+    meal:      escapeHtml(entry.meal),
+    mealId:    escapeHtml(entry.mealId),
+    takeout:   escapeHtml(entry.takeout),
+    side:      escapeHtml(entry.side),
+    items:     Array.isArray(entry.items)     ? entry.items.map(i => escapeHtml(i))     : [],
+    sideItems: Array.isArray(entry.sideItems) ? entry.sideItems.map(i => escapeHtml(i)) : [],
+    complete:  !!entry.complete,
+    leftovers: typeof entry.leftovers === "number" ? entry.leftovers : 0,
+    dateNight: !!entry.dateNight,
+  };
+}
+
 function loadSharedWeek(){
 
   const hash = location.hash
@@ -337,7 +349,7 @@ function loadSharedWeek(){
     const data = JSON.parse(json)
 
     if(Array.isArray(data)){
-      currentPlan = data
+      currentPlan = data.map(sanitizePlanEntry).filter(Boolean)
       render()
       return true
     }
