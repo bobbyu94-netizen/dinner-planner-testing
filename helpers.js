@@ -13,3 +13,25 @@ function getMealName(meal){
 function findMealByIdOrName(value){
   return MEALS.find(m => m.id === value || m.meal === value || m.name === value);
 }
+
+function showToast(message){
+  const existing = document.getElementById("toast");
+  if(existing) existing.remove();
+
+  const toast = document.createElement("div");
+  toast.id = "toast";
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      toast.classList.add("toast-visible");
+    });
+  });
+
+  setTimeout(() => {
+    toast.classList.remove("toast-visible");
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}

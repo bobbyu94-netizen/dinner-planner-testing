@@ -81,7 +81,7 @@ function addPantryItem(){
   const value = input.value.trim();
 
   if(!value){
-    alert("Please enter an item");
+    showToast("Please enter an item");
     return;
   }
 

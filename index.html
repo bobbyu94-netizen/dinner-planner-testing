@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Dinner Planner">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
 <title>Dinner Planner</title>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -22,7 +27,7 @@
   </button>
 
 </div>
-   
+
 <div id="planner"></div>
 
 <div class="panel">
@@ -43,8 +48,8 @@
   <div onclick="hideMainMenu(); showPlannerSettings();" style="padding:14px;border-bottom:1px solid #eee;">⚙️ Planner Settings</div>
   <div onclick="hideMainMenu();" style="padding:14px;color:red;">Close</div>
 </div>
-   
-  <div id="menu" style="display:none;position:fixed;left:0;right:0;bottom:0;background:white;border-top-left-radius:16px;border-top-right-radius:16px;padding:16px;box-shadow:0 -4px 16px rgba(0,0,0,.2);z-index:1000;">
+
+<div id="menu" class="bottom-sheet" style="display:none;position:fixed;left:0;right:0;bottom:0;background:white;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -4px 16px rgba(0,0,0,.2);z-index:1000;">
   <div onclick="favoriteMeal(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">⭐ Favorite</div>
   <div onclick="skipMeal(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">🚫 Skip</div>
   <div onclick="regenerateDay(menuDay)" style="padding:14px;border-bottom:1px solid #eee;">🔄 Regenerate</div>
@@ -53,7 +58,7 @@
   <div onclick="closeMenu()" style="padding:14px;color:red;">Cancel</div>
 </div>
 
-<div id="calendarPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1005;">
+<div id="calendarPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1005;">
   <h3>Add Week to Calendar</h3>
 
   <label class="small">Choose the week start date:</label>
@@ -63,8 +68,8 @@
   <button class="secondary" onclick="hideCalendarPanel()">Cancel</button>
 </div>
 
-<div id="takeoutDaysPanel"
-style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1011;">
+<div id="takeoutDaysPanel" class="full-panel"
+style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1011;">
 
   <h3>Choose Takeout Days</h3>
 
@@ -115,8 +120,8 @@ style="display:none;position:fixed;inset:0;background:white;padding:20px;overflo
   <button class="secondary" onclick="hideTakeoutDaysPanel()">Cancel</button>
 
 </div>
-   
-  <div id="plannerSettingsPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1010;">
+
+<div id="plannerSettingsPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1010;">
   <h3>Planner Settings</h3>
 
   <p class="small">
@@ -138,7 +143,7 @@ style="display:none;position:fixed;inset:0;background:white;padding:20px;overflo
   <button type="button" onclick="showTakeoutDaysPanel()" class="secondary">
     Choose Takeout Days
   </button>
-</div>  
+</div>
 
 <label class="small">Calendar Dinner Start Time</label>
 
@@ -162,7 +167,7 @@ style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1p
   <option value="1.5">1.5 hours</option>
   <option value="2">2 hours</option>
 
-</select> 
+</select>
 
     <label class="small">Week Start Day</label>
 
@@ -201,7 +206,7 @@ style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1p
   </div>
 </div>
 
-  <div id="mealPreferencesPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1006;">
+<div id="mealPreferencesPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1006;">
   <h3>Meal Preferences</h3>
   <p class="small">Choose which proteins the planner can use.</p>
 
@@ -210,8 +215,8 @@ style="width:100%;padding:12px;margin:10px 0 18px 0;border-radius:10px;border:1p
   <button onclick="saveMealPreferences()">Save Preferences</button>
   <button class="secondary" onclick="hideMealPreferences()">Cancel</button>
 </div>
-   
-<div id="pantryPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1003;">
+
+<div id="pantryPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1003;">
 
 <h3>Use Soon</h3>
 <p class="small">Add ingredients you want the planner to prioritize.</p>
@@ -231,19 +236,19 @@ style="width:100%;padding:14px;margin-bottom:10px;font-size:16px;border:2px soli
 
 </div>
 
-<div id="favoritesPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1001;">
+<div id="favoritesPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1001;">
   <h3>Favorites</h3>
   <div id="favoritesList"></div>
   <button onclick="closeFavorites()">Close</button>
 </div>
 
-<div id="blockedPanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;overflow:auto;z-index:1001;">
+<div id="blockedPanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;overflow:auto;z-index:1001;">
   <h3>Skipped Meals</h3>
   <div id="blockedList"></div>
   <button onclick="document.getElementById('blockedPanel').style.display='none'">Close</button>
 </div>
 
-<div id="movePanel" style="display:none;position:fixed;inset:0;background:white;padding:20px;z-index:1002;overflow:auto;">
+<div id="movePanel" class="full-panel" style="display:none;position:fixed;inset:0;background:white;z-index:1002;overflow:auto;">
 
 <h3>Move meal to:</h3>
 <div id="moveList"></div>
@@ -263,6 +268,12 @@ style="width:100%;padding:14px;margin-bottom:10px;font-size:16px;border:2px soli
 <script src="render.js"></script>
 <script src="meal-actions.js"></script>
 <script src="app.js"></script>
-  
+
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+</script>
+
 </body>
 </html>

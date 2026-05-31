@@ -313,10 +313,10 @@ function copyShareLink(){
 
     navigator.clipboard.writeText(url)
 
-    alert("Share link copied 👍")
+    showToast("Share link copied 👍")
 
   }catch(e){
-    alert("Error creating link")
+    showToast("Error creating link")
   }
 
 }

@@ -53,7 +53,7 @@ function saveMealPreferences(){
   enabledProteins = Array.from(checked).map(x => x.value);
 
   if(!enabledProteins.length){
-    alert("Please leave at least one protein enabled.");
+    showToast("Please leave at least one protein enabled.");
     return;
   }
 

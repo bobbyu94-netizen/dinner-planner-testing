@@ -15,7 +15,7 @@ function saveTakeoutDaysSelection(){
   ).map(box => box.value);
 
   if(!selected.length){
-    alert("Please choose at least one takeout day.");
+    showToast("Please choose at least one takeout day.");
     return;
   }
 
@@ -36,7 +36,7 @@ function savePlannerSettings(){
   ).map(box => box.value);
 
   if(!plannerSettings.takeoutDays.length){
-    alert("Please choose at least one takeout day.");
+    showToast("Please choose at least one takeout day.");
     return;
   }
 
@@ -64,5 +64,5 @@ function savePlannerSettings(){
 
   hidePlannerSettings();
 
-  alert("Settings saved 👍");
+  showToast("Settings saved 👍");
 }

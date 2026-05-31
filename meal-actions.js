@@ -10,7 +10,7 @@ function favoriteMeal(day){
   }
 
   closeMenu();
-  alert(d.meal + " added to favorites ⭐");
+  showToast(d.meal + " added to favorites ⭐");
 }
 
 function skipMeal(day){
@@ -25,7 +25,7 @@ function skipMeal(day){
   }
 
   closeMenu();
-  alert(d.meal + " skipped 🚫");
+  showToast(d.meal + " skipped 🚫");
 }
 
 function regenerateDay(day){
@@ -97,7 +97,7 @@ function confirmMove(toDay){
   const toIndex = currentPlan.findIndex(d => d.day === toDay);
 
   if(fromIndex === -1 || toIndex === -1){
-    alert("Invalid move");
+    showToast("Invalid move");
     return;
   }
 
