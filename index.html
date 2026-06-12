@@ -249,6 +249,21 @@
 
 </div>
 
+<div id="recipePanel" class="bottom-sheet" style="display:none;position:fixed;left:0;right:0;bottom:0;max-height:85vh;overflow-y:auto;border-top-left-radius:20px;border-top-right-radius:20px;box-shadow:0 -4px 24px var(--shadow-md);z-index:1010;">
+  <div style="text-align:center;padding:8px 0 4px;">
+    <div style="width:36px;height:4px;background:var(--border);border-radius:4px;margin:0 auto;"></div>
+  </div>
+  <div style="padding:0 20px 20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <h3 id="recipeTitle" style="margin:0;font-size:18px;"></h3>
+      <button onclick="closeRecipe()" class="secondary" style="width:auto;padding:8px 14px;margin:0;font-size:14px;">Close</button>
+    </div>
+    <div id="recipeMeta" style="display:flex;gap:16px;margin-bottom:16px;"></div>
+    <div id="recipeSteps"></div>
+  </div>
+</div>
+<div id="recipeOverlay" onclick="closeRecipe()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1009;"></div>
+
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="data.js"></script>
@@ -261,6 +276,7 @@
 <script src="settings.js"></script>
 <script src="render.js"></script>
 <script src="meal-actions.js"></script>
+<script src="recipes.js"></script>
 <script src="sync.js"></script>
 <script src="app.js"></script>
 

@@ -59,7 +59,11 @@ else if (d.takeout) {
   html += `<div class="meal">🍔 ${escapeHtml(d.takeout)}</div>`;
 }
 else {
-  html += `<div class="meal">🍽 ${escapeHtml(d.meal)}</div>`;
+  const hasRecipe = !!(d.mealId && RECIPES[d.mealId]);
+  html += `<div class="meal">🍽 ${hasRecipe
+    ? `<span class="meal-tappable" onclick="showRecipe('${d.mealId}')">${escapeHtml(d.meal)}</span>`
+    : escapeHtml(d.meal)
+  }</div>`;
 
   if(d.items){
     grocery.push(...d.items);

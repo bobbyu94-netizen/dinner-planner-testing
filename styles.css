@@ -306,3 +306,40 @@ ul { margin: 8px 0 7px 10px; }
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+/* ─── Recipe card ────────────────────────────────────────────── */
+.recipe-meta-pill {
+  background: var(--surface-tag);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.recipe-step {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--divider);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.recipe-step:last-child { border-bottom: none; }
+
+.recipe-step-num {
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 22px;
+  padding-top: 1px;
+}
+
+.meal-tappable {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 3px;
+}
