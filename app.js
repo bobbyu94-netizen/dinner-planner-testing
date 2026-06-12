@@ -63,6 +63,7 @@ function savePlan() {
   localStorage.setItem("currentPlan", JSON.stringify(currentPlan));
   localStorage.setItem("lunchPlan", JSON.stringify(lunchPlan));
   localStorage.setItem("locked", JSON.stringify(locked));
+  pushToCloud();
 }
 
 function loadPlan() {
@@ -352,6 +353,7 @@ function showFavorites(){
 function removeFavorite(meal){
   favorites = favorites.filter(m => m !== meal);
   localStorage.setItem("favorites", JSON.stringify(favorites));
+  pushToCloud();
   showFavorites();
 }
 
@@ -382,6 +384,7 @@ function showBlockedMeals(){
 function removeBlockedMeal(mealKey){
   blocked = blocked.filter(m => m !== mealKey);
   localStorage.setItem("blocked", JSON.stringify(blocked));
+  pushToCloud();
   showBlockedMeals();
 }
 
@@ -449,4 +452,9 @@ if (!loadPlan()) {
   generate();
 } else {
   render();
+}
+
+const _savedHouseholdCode = localStorage.getItem("householdCode");
+if (_savedHouseholdCode) {
+  initSync(_savedHouseholdCode);
 }

@@ -7,6 +7,7 @@ function favoriteMeal(day){
   if(!favorites.includes(favoriteKey)){
     favorites.push(favoriteKey);
     localStorage.setItem("favorites", JSON.stringify(favorites));
+    pushToCloud();
   }
 
   closeMenu();
@@ -22,6 +23,7 @@ function skipMeal(day){
   if(!blocked.includes(mealKey)){
     blocked.push(mealKey);
     localStorage.setItem("blocked", JSON.stringify(blocked));
+    pushToCloud();
   }
 
   closeMenu();

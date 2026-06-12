@@ -9,6 +9,7 @@ function usePantryItemsForMeal(day){
   });
 
   localStorage.setItem("pantry", JSON.stringify(pantry));
+  pushToCloud();
 }
 
 function showPantry(){
@@ -87,6 +88,7 @@ function addPantryItem(){
 
   pantry.push(value);
   localStorage.setItem("pantry", JSON.stringify(pantry));
+  pushToCloud();
 
   input.value = "";
 
@@ -98,6 +100,7 @@ function quickAddPantryItem(item){
   if(!pantry.some(p => p.toLowerCase() === item.toLowerCase())){
     pantry.push(item);
     localStorage.setItem("pantry", JSON.stringify(pantry));
+    pushToCloud();
   }
 
   showPantry();
@@ -107,6 +110,7 @@ function removePantryItem(item){
 
   pantry = pantry.filter(i => i !== item)
   localStorage.setItem("pantry", JSON.stringify(pantry))
+  pushToCloud()
 
   showPantry()
 }
