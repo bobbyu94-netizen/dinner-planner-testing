@@ -1,4 +1,4 @@
-const CACHE_NAME = "dinner-planner-v1";
+const CACHE_NAME = "dinner-planner-v2";
 
 const ASSETS = [
   "./",
@@ -15,6 +15,7 @@ const ASSETS = [
   "./settings.js",
   "./render.js",
   "./meal-actions.js",
+  "./recipes.js",
   "./app.js"
 ];
 
