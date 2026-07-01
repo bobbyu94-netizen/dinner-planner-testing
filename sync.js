@@ -49,10 +49,15 @@ function _applySharedState(data) {
 function pushToCloud() {
   if (!db || !householdCode || _applyingCloudUpdate) return;
   _setSyncStatus("syncing");
-  db.collection("households").doc(householdCode)
-    .set(_getSharedState())
-    .then(() => _setSyncStatus("synced"))
-    .catch(e => { console.warn("Sync error:", e); _setSyncStatus("error"); });
+  try {
+    db.collection("households").doc(householdCode)
+      .set(_getSharedState())
+      .then(() => _setSyncStatus("synced"))
+      .catch(e => { console.warn("Sync error:", e); _setSyncStatus("error"); });
+  } catch (e) {
+    console.warn("Sync error:", e);
+    _setSyncStatus("error");
+  }
 }
 
 function _setSyncStatus(status) {

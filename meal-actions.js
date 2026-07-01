@@ -106,29 +106,13 @@ function confirmMove(toDay){
   const fromEntry = currentPlan[fromIndex];
   const toEntry = currentPlan[toIndex];
 
-  const fromContent = {
-    takeout: fromEntry.takeout,
-    mealId: fromEntry.mealId,
-    meal: fromEntry.meal,
-    items: fromEntry.items,
-    side: fromEntry.side,
-    sideItems: fromEntry.sideItems,
-    complete: fromEntry.complete
-  };
+  const { day: fromDay, ...fromContent } = fromEntry;
+  const { day: toDayKey, ...toContent } = toEntry;
 
-  const toContent = {
-    takeout: toEntry.takeout,
-    mealId: toEntry.mealId,
-    meal: toEntry.meal,
-    items: toEntry.items,
-    side: toEntry.side,
-    sideItems: toEntry.sideItems,
-    complete: toEntry.complete
-  };
+  currentPlan[fromIndex] = { day: fromDay, ...toContent };
+  currentPlan[toIndex] = { day: toDayKey, ...fromContent };
 
-  currentPlan[fromIndex] = { day: fromEntry.day, ...toContent };
-  currentPlan[toIndex] = { day: toEntry.day, ...fromContent };
-
+  savePlan();
   closeMove();
   render();
 }
