@@ -6,14 +6,16 @@ function categorize(item){
     ) return "Frozen";
 
   if (
-    s.includes("broth")
+    s.includes("broth") || s.includes("cornmeal") || s.includes("cornbread")
     ) return "Pantry";
 
   if (
     s.includes("beef") || s.includes("chicken") || s.includes("pork") ||
     s.includes("steak") || s.includes("shrimp") || s.includes("sausage") ||
-    s.includes("salmon") || s.includes("ribs") || s.includes("hot dogs") || 
-    s.includes("turkey") || s.includes ("bacon")
+    s.includes("salmon") || s.includes("ribs") || s.includes("hot dogs") ||
+    s.includes("turkey") || s.includes ("bacon") || s.includes("catfish") ||
+    s.includes("tilapia") || s.includes("mahi") || s.includes("scallop") ||
+    s.includes("clam") || s.includes("oyster")
   ) return "Meat";
 
   if (

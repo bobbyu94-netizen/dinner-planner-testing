@@ -63,6 +63,13 @@ const MEALS = [
   {id:"shrimp_alfredo", meal:"Shrimp Alfredo", protein:"seafood", items:["Shrimp","Pasta","Heavy whipping cream","Parmesan cheese","Garlic"]},
   {id:"shrimp_pasta", meal:"Shrimp Pasta", protein:"seafood", items:["Shrimp","Pasta"]},
   {id:"fried_catfish", meal:"Fried Catfish", protein:"seafood", items:["Catfish","Breading","Oil"]},
+  {id:"shrimp_tacos", meal:"Shrimp Tacos", protein:"seafood", items:["Shrimp","Tortillas","Cabbage","Lime","Chipotle mayo"], complete:true},
+  {id:"blackened_salmon", meal:"Blackened Salmon", protein:"seafood", items:["Salmon","Blackening seasoning"]},
+  {id:"baked_tilapia", meal:"Baked Tilapia", protein:"seafood", items:["Tilapia","Lemon","Butter","Old Bay seasoning"]},
+  {id:"mahi_mahi", meal:"Mahi Mahi", protein:"seafood", items:["Mahi mahi","Lemon pepper seasoning"]},
+  {id:"seared_scallops", meal:"Seared Scallops", protein:"seafood", items:["Scallops","Butter","Garlic"]},
+  {id:"clam_chowder", meal:"Clam Chowder", protein:"seafood", items:["Clams","Potatoes","Bacon","Heavy whipping cream","Onions"], leftovers:1, complete:true},
+  {id:"fried_oysters", meal:"Fried Oysters", protein:"seafood", items:["Oysters","Cornmeal","Oil"]},
 
   {id:"chili", meal:"Chili", protein:"mixed", items:["Ground beef","Beans","Diced tomatoes","Chili seasoning"], leftovers:1, complete:true},
   {id:"gumbo", meal:"Gumbo", protein:"mixed", items:["Whole chicken","Sausage","Rice","Green Peppers","Celery","Onions","Chicken Broth"], leftovers:2, complete:true},
@@ -148,6 +155,8 @@ const SIDE_OVERRIDES = {
   buffalo_chicken_wraps:["French Fries","Tater Tots"],
   chicken_wings:["French Fries","Tater Tots"],
   fried_catfish:["Hushpuppies"],
+  fried_oysters:["Hushpuppies"],
+  shrimp_tacos:["Mexican Rice","Black Beans"],
   lasagna:["Garlic Bread"],
   buffalo_chicken:["French Fries","Tater Tots"],
   chicken_parm:["Spaghetti"],
@@ -522,6 +531,75 @@ const RECIPES = {
       "Add potatoes, season with salt, pepper, and garlic powder.",
       "Simmer 10 minutes. Mash some potatoes against the pot to thicken.",
       "Stir in shredded cheese until melted. Serve topped with bacon bits, sour cream, and green onions."
+    ]
+  },
+  shrimp_tacos: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Peel and devein shrimp, pat dry, and season with chili powder, cumin, and salt.",
+      "Sear shrimp in a hot skillet with a little oil, about 2 minutes per side until pink and opaque.",
+      "Warm tortillas in a dry skillet or the microwave.",
+      "Shred cabbage thin and squeeze fresh lime juice over it.",
+      "Assemble tacos with shrimp, cabbage, and a drizzle of chipotle mayo.",
+      "Serve with extra lime wedges."
+    ]
+  },
+  blackened_salmon: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Pat salmon fillets dry and coat both sides generously with blackening seasoning.",
+      "Heat a cast iron skillet over medium-high heat with a little oil until very hot.",
+      "Sear salmon 3–4 minutes on the first side until a dark crust forms.",
+      "Flip and cook 3–4 more minutes until it flakes easily.",
+      "Rest 2 minutes before serving."
+    ]
+  },
+  baked_tilapia: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Preheat oven to 400°F.",
+      "Place tilapia fillets on a foil-lined baking sheet.",
+      "Melt butter, mix with lemon juice and Old Bay seasoning, and brush over the fillets.",
+      "Bake 12–15 minutes until the fish flakes easily with a fork.",
+      "Squeeze fresh lemon over top before serving."
+    ]
+  },
+  mahi_mahi: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Pat mahi mahi fillets dry and season both sides with lemon pepper seasoning.",
+      "Heat a skillet over medium-high heat with a little oil or butter.",
+      "Sear fillets 4–5 minutes per side until opaque and flaking.",
+      "Rest a couple minutes before serving."
+    ]
+  },
+  seared_scallops: {
+    cookTime: "15 min", servings: 4,
+    steps: [
+      "Pat scallops very dry and season with salt and pepper.",
+      "Heat a skillet over high heat with butter until foaming.",
+      "Sear scallops 1.5–2 minutes per side without moving them, until golden.",
+      "Remove from heat, spoon the garlic butter over top, and serve immediately."
+    ]
+  },
+  clam_chowder: {
+    cookTime: "45 min", servings: 6,
+    steps: [
+      "Cook diced bacon in a large pot until crisp. Remove the bacon, leave the drippings.",
+      "Sauté onions in the drippings until soft.",
+      "Add diced potatoes and clam juice (or water), simmer until potatoes are tender, about 15 minutes.",
+      "Stir in clams and heavy whipping cream, warming through without boiling.",
+      "Season with salt and pepper. Ladle into bowls topped with the crispy bacon."
+    ]
+  },
+  fried_oysters: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Drain oysters and pat dry.",
+      "Dredge oysters in seasoned cornmeal, pressing to coat well.",
+      "Heat oil in a skillet or fryer to 350°F.",
+      "Fry oysters in batches, 2–3 minutes until golden brown.",
+      "Drain on paper towels, serve hot with hushpuppies and lemon wedges."
     ]
   }
 };
