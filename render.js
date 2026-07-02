@@ -4,7 +4,11 @@ function categorize(item){
   if (
     s.includes("frozen")
     ) return "Frozen";
-   
+
+  if (
+    s.includes("broth")
+    ) return "Pantry";
+
   if (
     s.includes("beef") || s.includes("chicken") || s.includes("pork") ||
     s.includes("steak") || s.includes("shrimp") || s.includes("sausage") ||

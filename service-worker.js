@@ -1,4 +1,4 @@
-const CACHE_NAME = "dinner-planner-v2";
+const CACHE_NAME = "dinner-planner-v3";
 
 const ASSETS = [
   "./",

@@ -15,7 +15,7 @@ function usePantryItemsForMeal(day){
 function showPantry(){
 
   const quickItems = [
-    "Chicken",
+    "Chicken breast",
     "Ground beef",
     "Shrimp",
     "Bacon",
