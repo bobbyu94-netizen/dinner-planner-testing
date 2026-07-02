@@ -131,3 +131,99 @@ function setDateNight(day){
   closeMenu();
   render();
 }
+
+let pickerDay = null;
+
+function openMealPicker(day){
+  pickerDay = day;
+  closeMenu();
+
+  document.getElementById("mealPickerTitle").textContent = "Choose a meal for " + day;
+  document.getElementById("mealPickerSearch").value = "";
+  renderMealPickerList("");
+
+  document.getElementById("mealPickerPanel").style.display = "block";
+
+  setTimeout(() => {
+    document.getElementById("mealPickerSearch").focus();
+  }, 100);
+}
+
+function closeMealPicker(){
+  document.getElementById("mealPickerPanel").style.display = "none";
+}
+
+function filterMealPicker(){
+  renderMealPickerList(document.getElementById("mealPickerSearch").value);
+}
+
+function renderMealPickerList(filterText){
+
+  const usedThisWeek = {};
+
+  currentPlan.forEach(d => {
+    if(d.day !== pickerDay && !d.takeout && !d.dateNight && d.meal){
+      usedThisWeek[d.mealId || d.meal] = d.day;
+    }
+  });
+
+  const query = (filterText || "").toLowerCase().trim();
+  const groups = {};
+
+  MEALS.forEach(m => {
+    if(blocked.includes(m.id) || blocked.includes(m.meal)) return;
+    if(!mealAllowedByDiet(m)) return;
+    if(query && !m.meal.toLowerCase().includes(query)) return;
+
+    const group = PROTEIN_LABELS[m.protein] || "Other";
+    if(!groups[group]) groups[group] = [];
+    groups[group].push(m);
+  });
+
+  const order = ["Ground Beef","Beef","Chicken","Pork","Seafood","Mixed"];
+  let html = "";
+
+  order.forEach(group => {
+    if(!groups[group] || !groups[group].length) return;
+
+    html += `<h4>${group}</h4>`;
+
+    groups[group].forEach(m => {
+      const isFavorite = favorites.includes(m.id) || favorites.includes(m.meal);
+      const usedDay = usedThisWeek[m.id] || usedThisWeek[m.meal];
+
+      html += `<div class="meal-picker-row" onclick="assignPickedMeal('${m.id}')">
+        <span>${escapeHtml(m.meal)}</span>
+        ${isFavorite ? `<span class="meal-picker-tag">⭐</span>` : ""}
+        ${usedDay ? `<span class="meal-picker-tag">used ${escapeHtml(usedDay)}</span>` : ""}
+      </div>`;
+    });
+  });
+
+  document.getElementById("mealPickerList").innerHTML = html || "<p class='small'>No meals match.</p>";
+}
+
+function assignPickedMeal(mealId){
+
+  const meal = findMealByIdOrName(mealId);
+  if(!meal) return;
+
+  const side = meal.complete ? null : pickSide(meal, meal.protein);
+  const index = currentPlan.findIndex(d => d.day === pickerDay);
+
+  currentPlan[index] = {
+    day: pickerDay,
+    mealId: meal.id,
+    meal: meal.meal,
+    items: meal.items,
+    side,
+    sideItems: side ? (SIDE_ITEMS[side] || []) : [],
+    complete: !!meal.complete,
+    leftovers: meal.leftovers || 0,
+  };
+
+  savePlan();
+  closeMealPicker();
+  render();
+  showToast(meal.meal + " assigned to " + pickerDay);
+}

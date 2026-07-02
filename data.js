@@ -75,6 +75,15 @@ const MEALS = [
   {id:"blts", meal:"BLTs", protein:"mixed", items:["Bacon","Bread","Lettuce","Tomatoes"]}
 ];
 
+const PROTEIN_LABELS = {
+  ground_beef: "Ground Beef",
+  beef: "Beef",
+  chicken: "Chicken",
+  pork: "Pork",
+  seafood: "Seafood",
+  mixed: "Mixed"
+};
+
 const SIDE_ITEMS = {
   "Asparagus":["Asparagus"],
   "Wild Rice":["Rice"],

@@ -66,6 +66,7 @@
   <div class="menu-row" onclick="favoriteMeal(menuDay)">⭐ Favorite</div>
   <div class="menu-row" onclick="skipMeal(menuDay)">🚫 Skip</div>
   <div class="menu-row" onclick="regenerateDay(menuDay)">🔄 Regenerate</div>
+  <div class="menu-row" onclick="openMealPicker(menuDay)">🔍 Search meals</div>
   <div class="menu-row" onclick="moveMeal(menuDay)">🔀 Move to another day</div>
   <div class="menu-row" onclick="setDateNight(menuDay)">❤️ Date Night</div>
   <div class="menu-row-cancel" onclick="closeMenu()">Cancel</div>
@@ -249,6 +250,20 @@
 
 </div>
 
+<div id="mealPickerPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1013;">
+
+  <h3 id="mealPickerTitle">Choose a meal</h3>
+
+  <input id="mealPickerSearch" type="text" placeholder="Search meals..."
+    oninput="filterMealPicker()"
+    style="width:100%;padding:12px;margin:10px 0;font-size:16px;">
+
+  <div id="mealPickerList"></div>
+
+  <button class="secondary" onclick="closeMealPicker()">Cancel</button>
+
+</div>
+
 <div id="recipePanel" class="bottom-sheet" style="display:none;position:fixed;left:0;right:0;bottom:0;max-height:85vh;overflow-y:auto;border-top-left-radius:20px;border-top-right-radius:20px;box-shadow:0 -4px 24px var(--shadow-md);z-index:1010;">
   <div style="text-align:center;padding:8px 0 4px;">
     <div style="width:36px;height:4px;background:var(--border);border-radius:4px;margin:0 auto;"></div>
@@ -266,19 +281,19 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="data.js?v17"></script>
-<script src="helpers.js?v17"></script>
-<script src="storage.js?v17"></script>
-<script src="ui-panels.js?v17"></script>
-<script src="calendar.js?v17"></script>
-<script src="pantry.js?v17"></script>
-<script src="preferences.js?v17"></script>
-<script src="settings.js?v17"></script>
-<script src="render.js?v17"></script>
-<script src="meal-actions.js?v17"></script>
-<script src="recipes.js?v17"></script>
-<script src="sync.js?v17"></script>
-<script src="app.js?v17"></script>
+<script src="data.js?v18"></script>
+<script src="helpers.js?v18"></script>
+<script src="storage.js?v18"></script>
+<script src="ui-panels.js?v18"></script>
+<script src="calendar.js?v18"></script>
+<script src="pantry.js?v18"></script>
+<script src="preferences.js?v18"></script>
+<script src="settings.js?v18"></script>
+<script src="render.js?v18"></script>
+<script src="meal-actions.js?v18"></script>
+<script src="recipes.js?v18"></script>
+<script src="sync.js?v18"></script>
+<script src="app.js?v18"></script>
 
 <script>
   if ("serviceWorker" in navigator) {
