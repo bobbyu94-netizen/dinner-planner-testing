@@ -231,6 +231,11 @@ function generate(){
         plan.push(existing);
         if (!existing.takeout && existing.meal) {
           usedMeals.push(existing.mealId || existing.meal);
+
+          const existingMeal = findMealByIdOrName(existing.mealId || existing.meal);
+          if (existingMeal && existingMeal.protein !== "mixed") {
+            proteinCount[existingMeal.protein] = (proteinCount[existingMeal.protein] || 0) + 1;
+          }
         }
         return;
       }
