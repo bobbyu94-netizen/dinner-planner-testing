@@ -127,6 +127,27 @@ textarea {
 h2,h3,h4 { margin: 0 0 10px 0; }
 ul { margin: 8px 0 7px 10px; }
 
+/* ─── Shopping list checkboxes ───────────────────────────────── */
+.grocery-list {
+  list-style: none;
+  margin: 0 0 14px 0;
+  padding: 0;
+}
+
+.grocery-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.grocery-row-unchecked label span {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
 /* ─── Fullscreen panels ──────────────────────────────────────── */
 .full-panel {
   background: var(--surface);

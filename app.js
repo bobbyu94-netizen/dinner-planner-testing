@@ -31,6 +31,7 @@ let favorites = safeParseJSON("favorites", []);
 let blocked = safeParseJSON("blocked", []);
 let pantry = safeParseJSON("pantry", []);
 let customRecipes = safeParseJSON("customRecipes", {});
+let shoppingListChecks = safeParseJSON("shoppingListChecks", {});
 
 let enabledProteins = safeParseJSON("enabledProteins", [
   "ground_beef",

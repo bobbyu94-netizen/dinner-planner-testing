@@ -43,7 +43,6 @@ function categorize(item){
 
 function render(){
   let html = "";
-  const grocery = [];
 
   currentPlan.forEach(d => {
   html += `<div class="day" style="display:flex;justify-content:space-between;gap:10px;">`
@@ -71,15 +70,8 @@ else {
     : escapeHtml(d.meal)
   }</div>`;
 
-  if(d.items){
-    grocery.push(...d.items);
-  }
-
   if (d.side) {
     html += `<div class="side">🥗 ${escapeHtml(d.side)}</div>`;
-    if(d.sideItems){
-      grocery.push(...d.sideItems);
-    }
   }
 }
 
@@ -97,7 +89,30 @@ html += `</div>`;
 
   document.getElementById("planner").innerHTML = html;
 
-  const unique = [...new Set(grocery)];
+  renderGroceryList();
+}
+
+function getGroceryItems(){
+  const grocery = [];
+
+  currentPlan.forEach(d => {
+    if (d.takeout || d.dateNight) return;
+    if (d.items) grocery.push(...d.items);
+    if (d.sideItems) grocery.push(...d.sideItems);
+  });
+
+  return [...new Set(grocery)];
+}
+
+function renderGroceryList(){
+  const unique = getGroceryItems();
+  const uniqueSet = new Set(unique);
+
+  Object.keys(shoppingListChecks).forEach(key => {
+    if (!uniqueSet.has(key)) delete shoppingListChecks[key];
+  });
+  localStorage.setItem("shoppingListChecks", JSON.stringify(shoppingListChecks));
+
   const groups = {};
 
   unique.forEach(item => {
@@ -112,12 +127,69 @@ html += `</div>`;
   order.forEach(cat => {
     if (!groups[cat] || !groups[cat].length) return;
     groups[cat].sort((a,b) => a.localeCompare(b));
-    list += `<h4>${cat}</h4><ul>`;
+    list += `<h4>${cat}</h4><ul class="grocery-list">`;
     groups[cat].forEach(i => {
-      list += `<li>${i}</li>`;
+      const checked = shoppingListChecks[i] !== false;
+      list += `<li class="grocery-row${checked ? "" : " grocery-row-unchecked"}">
+        <label>
+          <input type="checkbox" data-item="${escapeHtml(i)}" ${checked ? "checked" : ""} onchange="toggleShoppingCheck(this.dataset.item, this.checked)">
+          <span>${escapeHtml(i)}</span>
+        </label>
+      </li>`;
     });
     list += `</ul>`;
   });
 
   document.getElementById("grocery").innerHTML = list || "<div class='small'>No items yet.</div>";
+}
+
+function toggleShoppingCheck(item, isChecked){
+  if (isChecked) {
+    delete shoppingListChecks[item];
+  } else {
+    shoppingListChecks[item] = false;
+  }
+
+  localStorage.setItem("shoppingListChecks", JSON.stringify(shoppingListChecks));
+  pushToCloud();
+  renderGroceryList();
+}
+
+function exportShoppingList(){
+  const unique = getGroceryItems().filter(i => shoppingListChecks[i] !== false);
+
+  if (!unique.length) {
+    showToast("No items to export.");
+    return;
+  }
+
+  const groups = {};
+
+  unique.forEach(item => {
+    const cat = categorize(item);
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(item);
+  });
+
+  const order = ["Produce","Meat","Dairy","Pantry","Frozen","Other"];
+  let text = "Shopping List\n";
+
+  order.forEach(cat => {
+    if (!groups[cat] || !groups[cat].length) return;
+    groups[cat].sort((a,b) => a.localeCompare(b));
+    text += "\n" + cat + "\n";
+    groups[cat].forEach(i => {
+      text += "- " + i + "\n";
+    });
+  });
+
+  if (navigator.share) {
+    navigator.share({ text: text }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast("Copied — paste into Notes");
+    });
+  } else {
+    showToast("Sharing not supported on this browser.");
+  }
 }
