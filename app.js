@@ -30,6 +30,7 @@ function safeParseJSON(key, fallback) {
 let favorites = safeParseJSON("favorites", []);
 let blocked = safeParseJSON("blocked", []);
 let pantry = safeParseJSON("pantry", []);
+let customRecipes = safeParseJSON("customRecipes", {});
 
 let enabledProteins = safeParseJSON("enabledProteins", [
   "ground_beef",

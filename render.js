@@ -65,8 +65,7 @@ else if (d.takeout) {
   html += `<div class="meal">🍔 ${escapeHtml(d.takeout)}</div>`;
 }
 else {
-  const recipeKey = d.mealId && RECIPES[d.mealId] ? d.mealId
-    : (() => { const m = findMealByIdOrName(d.meal); return m && RECIPES[m.id] ? m.id : null; })();
+  const recipeKey = d.mealId || (findMealByIdOrName(d.meal) || {}).id || null;
   html += `<div class="meal">🍽 ${recipeKey
     ? `<span class="meal-tappable" onclick="showRecipe('${recipeKey}')">${escapeHtml(d.meal)}</span>`
     : escapeHtml(d.meal)

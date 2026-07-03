@@ -22,6 +22,7 @@ function _getSharedState() {
     blocked,
     pantry,
     mealHistory: getHistory(),
+    customRecipes,
   };
 }
 
@@ -35,6 +36,7 @@ function _applySharedState(data) {
   if (Array.isArray(data.blocked))                  blocked     = data.blocked;
   if (Array.isArray(data.pantry))                   pantry      = data.pantry;
   if (Array.isArray(data.mealHistory))              saveHistory(data.mealHistory);
+  if (data.customRecipes && typeof data.customRecipes === "object") customRecipes = data.customRecipes;
 
   localStorage.setItem("currentPlan", JSON.stringify(currentPlan));
   localStorage.setItem("lunchPlan",   JSON.stringify(lunchPlan));
@@ -42,6 +44,7 @@ function _applySharedState(data) {
   localStorage.setItem("favorites",   JSON.stringify(favorites));
   localStorage.setItem("blocked",     JSON.stringify(blocked));
   localStorage.setItem("pantry",      JSON.stringify(pantry));
+  localStorage.setItem("customRecipes", JSON.stringify(customRecipes));
 
   _applyingCloudUpdate = false;
 }

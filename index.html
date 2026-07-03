@@ -23,7 +23,7 @@
 
 <div style="font-size:12px;font-weight:700;text-align:center;margin-bottom:10px;color:#92400e;background:#fef3c7;border:1px solid #f59e0b;border-radius:999px;padding:6px 10px;">
   Testing Version
-  <div style="font-size:10px;font-weight:400;margin-top:2px;">Updated Jul 2, 2026 12:15 AM ET</div>
+  <div style="font-size:10px;font-weight:400;margin-top:2px;">Updated Jul 2, 2026 9:50 PM ET</div>
 </div>
 
 <div style="text-align:right;font-size:11px;color:var(--text-muted);min-height:16px;margin-bottom:4px;">
@@ -272,7 +272,10 @@
   <div style="padding:0 20px 20px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <h3 id="recipeTitle" style="margin:0;font-size:18px;"></h3>
-      <button onclick="closeRecipe()" class="secondary" style="width:auto;padding:8px 14px;margin:0;font-size:14px;">Close</button>
+      <div style="display:flex;gap:8px;">
+        <button onclick="openRecipeEditor()" class="secondary" style="width:auto;padding:8px 14px;margin:0;font-size:14px;">Edit</button>
+        <button onclick="closeRecipe()" class="secondary" style="width:auto;padding:8px 14px;margin:0;font-size:14px;">Close</button>
+      </div>
     </div>
     <div id="recipeMeta" style="display:flex;gap:16px;margin-bottom:16px;"></div>
     <div id="recipeSteps"></div>
@@ -280,21 +283,43 @@
 </div>
 <div id="recipeOverlay" onclick="closeRecipe()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1009;"></div>
 
+<div id="recipeEditPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1014;">
+
+  <h3>Edit Recipe</h3>
+
+  <label class="small">Cook Time</label>
+  <input id="recipeEditCookTime" type="text" placeholder="e.g. 30 min"
+    style="width:100%;padding:12px;margin:10px 0;font-size:16px;">
+
+  <label class="small">Servings</label>
+  <input id="recipeEditServings" type="number" min="1"
+    style="width:100%;padding:12px;margin:10px 0;font-size:16px;">
+
+  <label class="small">Steps (one per line)</label>
+  <textarea id="recipeEditSteps" rows="10"
+    style="width:100%;padding:12px;margin:10px 0;font-size:16px;"></textarea>
+
+  <button onclick="saveRecipeEdit()">Save Recipe</button>
+  <button id="deleteCustomRecipeBtn" class="secondary" style="display:none;" onclick="deleteCustomRecipe()">Reset to Default</button>
+  <button class="secondary" onclick="closeRecipeEditor()">Cancel</button>
+
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="data.js?v19"></script>
-<script src="helpers.js?v19"></script>
-<script src="storage.js?v19"></script>
-<script src="ui-panels.js?v19"></script>
-<script src="calendar.js?v19"></script>
-<script src="pantry.js?v19"></script>
-<script src="preferences.js?v19"></script>
-<script src="settings.js?v19"></script>
-<script src="render.js?v19"></script>
-<script src="meal-actions.js?v19"></script>
-<script src="recipes.js?v19"></script>
-<script src="sync.js?v19"></script>
-<script src="app.js?v19"></script>
+<script src="data.js?v20"></script>
+<script src="helpers.js?v20"></script>
+<script src="storage.js?v20"></script>
+<script src="ui-panels.js?v20"></script>
+<script src="calendar.js?v20"></script>
+<script src="pantry.js?v20"></script>
+<script src="preferences.js?v20"></script>
+<script src="settings.js?v20"></script>
+<script src="render.js?v20"></script>
+<script src="meal-actions.js?v20"></script>
+<script src="recipes.js?v20"></script>
+<script src="sync.js?v20"></script>
+<script src="app.js?v20"></script>
 
 <script>
   if ("serviceWorker" in navigator) {
