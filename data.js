@@ -601,5 +601,357 @@ const RECIPES = {
       "Fry oysters in batches, 2–3 minutes until golden brown.",
       "Drain on paper towels, serve hot with hushpuppies and lemon wedges."
     ]
+  },
+  cheeseburgers: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Form ground beef into 4 equal patties, season with salt and pepper.",
+      "Heat a skillet or grill to medium-high heat.",
+      "Cook patties 3–4 minutes per side, adding a slice of American cheese in the last minute to melt.",
+      "Toast the buns lightly.",
+      "Build burgers with onions and any other toppings you like."
+    ]
+  },
+  cubed_steak: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Season cubed steaks with salt and pepper.",
+      "Dredge lightly in flour, shaking off excess.",
+      "Pan-fry in a hot skillet with oil, 3–4 minutes per side until browned.",
+      "Reduce heat, cover, and cook a few more minutes until tender.",
+      "Serve as-is or with gravy spooned over top."
+    ]
+  },
+  steak: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Season steaks generously with salt and pepper, let sit at room temperature 15 minutes.",
+      "Heat a cast iron skillet or grill until very hot.",
+      "Sear steaks 3–4 minutes per side for medium-rare, adjusting time for thickness and preference.",
+      "Rest steaks 5 minutes before slicing."
+    ]
+  },
+  philly_cheesesteaks: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Sauté sliced onions and mushrooms in a skillet until soft, set aside.",
+      "In the same skillet, cook shaved steak over high heat, breaking it up, 3–4 minutes.",
+      "Return onions and mushrooms to the skillet with the steak.",
+      "Split French bread and top with the steak mixture, layer with White American cheese.",
+      "Broil or cover until cheese melts, then serve."
+    ]
+  },
+  chicken_wings: {
+    cookTime: "40 min", servings: 4,
+    steps: [
+      "Preheat oven to 425°F, line a baking sheet with foil.",
+      "Pat wings dry and toss with oil, salt, and pepper.",
+      "Arrange in a single layer on the baking sheet.",
+      "Bake 40 minutes, flipping halfway, until crispy and cooked through.",
+      "Toss in your favorite sauce before serving."
+    ]
+  },
+  grilled_chicken: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Season chicken breasts with salt, pepper, and any preferred seasoning.",
+      "Preheat a grill or grill pan to medium-high heat.",
+      "Grill 6–7 minutes per side until internal temp reaches 165°F.",
+      "Rest 5 minutes before slicing."
+    ]
+  },
+  chicken_quesadillas: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Dice chicken breast and cook in a skillet until browned and cooked through.",
+      "Stir in Rotel and simmer 2 minutes to reduce liquid.",
+      "Lay a tortilla in a dry skillet, sprinkle cheese, add chicken mixture, top with more cheese and a second tortilla.",
+      "Cook 2–3 minutes per side until golden and cheese is melted.",
+      "Slice into wedges and serve."
+    ]
+  },
+  grilled_chicken_sandwiches: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Season chicken breasts and grill or pan-sear 6–7 minutes per side until cooked through.",
+      "Sauté sliced mushrooms and onions until soft.",
+      "Toast pretzel buns.",
+      "Top chicken with Swiss cheese to melt, then layer onto buns with mushrooms and onions."
+    ]
+  },
+  alice_springs_chicken: {
+    cookTime: "35 min", servings: 4,
+    steps: [
+      "Preheat oven to 375°F.",
+      "Season chicken breasts and sear in an oven-safe skillet, 3 minutes per side.",
+      "Brush chicken with honey mustard, top with cooked bacon and cheese.",
+      "Transfer skillet to the oven, bake 15–20 minutes until chicken reaches 165°F and cheese is melted."
+    ]
+  },
+  buffalo_chicken: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Season chicken breasts with salt and pepper.",
+      "Pan-sear or grill chicken 6–7 minutes per side until cooked through.",
+      "Toss cooked chicken in buffalo sauce to coat.",
+      "Serve as-is or sliced over a salad or in a wrap."
+    ]
+  },
+  chicken_yellow_rice: {
+    cookTime: "35 min", servings: 4,
+    steps: [
+      "Season chicken breast and sear in a large pot or skillet until browned, then set aside.",
+      "Prepare yellow rice according to package directions in the same pot.",
+      "Slice or shred the chicken and stir back into the rice.",
+      "Simmer a few minutes together before serving."
+    ]
+  },
+  chicken_pot_pie: {
+    cookTime: "45 min", servings: 6,
+    steps: [
+      "Preheat oven to 400°F.",
+      "Cook diced chicken breast in a pot until browned, then set aside.",
+      "In the same pot, make a roux with butter and flour, whisk in broth and milk until thickened.",
+      "Stir in chicken and mixed vegetables, season with salt and pepper.",
+      "Pour filling into a pie crust or baking dish, top with a second crust or biscuits.",
+      "Bake 25–30 minutes until golden and bubbling."
+    ]
+  },
+  french_onion_chicken: {
+    cookTime: "35 min", servings: 4,
+    steps: [
+      "Preheat oven to 375°F.",
+      "Season chicken breasts and sear in an oven-safe skillet, 3 minutes per side.",
+      "Sprinkle onion soup mix over the chicken and add a splash of water to the pan.",
+      "Top with cheese if desired.",
+      "Transfer to the oven and bake 15–20 minutes until chicken reaches 165°F."
+    ]
+  },
+  bruschetta_chicken: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Dice tomatoes, toss with chopped basil, a drizzle of balsamic vinegar, salt, and pepper. Set aside.",
+      "Season chicken breasts and grill or pan-sear 6–7 minutes per side until cooked through.",
+      "Top chicken with the tomato bruschetta mixture just before serving."
+    ]
+  },
+  lemon_pepper_chicken: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Season chicken breasts generously with lemon pepper seasoning.",
+      "Heat a skillet with oil over medium-high heat.",
+      "Cook chicken 6–7 minutes per side until golden and cooked through.",
+      "Rest a few minutes before serving."
+    ]
+  },
+  smoked_chicken: {
+    cookTime: "3 hr", servings: 6,
+    steps: [
+      "Preheat smoker to 250°F.",
+      "Pat the whole chicken dry and season generously inside and out.",
+      "Place chicken in the smoker, breast side up.",
+      "Smoke until internal temperature reaches 165°F in the thickest part of the thigh, about 3 hours.",
+      "Rest 10–15 minutes before carving."
+    ]
+  },
+  chicken_bowls: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Season and cook diced chicken breast in a skillet until browned and cooked through.",
+      "Cook rice according to package directions.",
+      "Assemble bowls with rice, chicken, lettuce, black beans, cheddar cheese, and salsa."
+    ]
+  },
+  chicken_caesar_salad: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Season chicken breasts and grill or pan-sear 6–7 minutes per side until cooked through.",
+      "Slice chicken once rested.",
+      "Toss chopped lettuce with Caesar dressing.",
+      "Top with sliced chicken and serve."
+    ]
+  },
+  chicken_fried_rice: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Dice chicken breast and cook in a large skillet or wok until browned, set aside.",
+      "Scramble eggs in the same pan, set aside.",
+      "Add rice and mixed vegetables to the pan, stir-frying 3–4 minutes.",
+      "Return chicken and eggs to the pan, add soy sauce, and toss together until heated through."
+    ]
+  },
+  buffalo_chicken_wraps: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Season chicken breast and cook in a skillet until browned and cooked through, then slice or shred.",
+      "Toss chicken in buffalo sauce.",
+      "Warm tortillas.",
+      "Layer tortillas with lettuce, buffalo chicken, and a drizzle of ranch, then roll up."
+    ]
+  },
+  pork_tenderloin: {
+    cookTime: "35 min", servings: 4,
+    steps: [
+      "Preheat oven to 400°F.",
+      "Season pork tenderloin generously with salt, pepper, and any preferred seasoning.",
+      "Sear in an oven-safe skillet on all sides, about 5 minutes total.",
+      "Transfer to the oven and roast 20–25 minutes until internal temp reaches 145°F.",
+      "Rest 5–10 minutes before slicing."
+    ]
+  },
+  bbq_pork: {
+    cookTime: "6 hr", servings: 6,
+    steps: [
+      "Season pork butt generously and place in a slow cooker.",
+      "Cook on low 6–8 hours until the meat shreds easily with a fork.",
+      "Drain excess liquid, then shred the pork.",
+      "Toss shredded pork with BBQ sauce to coat."
+    ]
+  },
+  bbq_baked_potatoes: {
+    cookTime: "1 hr", servings: 4,
+    steps: [
+      "Scrub potatoes and pierce a few times with a fork.",
+      "Bake at 400°F for about 45–60 minutes until tender, or microwave to speed things up.",
+      "Warm the pulled pork (or cook and shred pork butt) and toss with BBQ sauce.",
+      "Split potatoes open, top with pulled pork and cheddar cheese."
+    ]
+  },
+  smoked_sausage: {
+    cookTime: "15 min", servings: 4,
+    steps: [
+      "Slice smoked sausage into coins.",
+      "Heat a skillet over medium heat with a little oil.",
+      "Cook sausage 8–10 minutes, stirring occasionally, until browned on both sides."
+    ]
+  },
+  hot_dogs: {
+    cookTime: "15 min", servings: 4,
+    steps: [
+      "Grill, boil, or pan-fry hot dogs until heated through and lightly browned.",
+      "Toast the buns.",
+      "Sauté onions if desired.",
+      "Build hot dogs with American cheese and onions."
+    ]
+  },
+  chili_dogs: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Cook hot dogs by your preferred method until heated through.",
+      "Warm chili in a saucepan.",
+      "Toast the buns.",
+      "Top hot dogs with chili, American cheese, and onions."
+    ]
+  },
+  shrimp_alfredo: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Cook pasta according to package directions, drain.",
+      "Season shrimp with salt and pepper, sauté in a skillet with garlic until pink, about 3 minutes. Set aside.",
+      "In the same pan, simmer heavy whipping cream with Parmesan cheese until thickened.",
+      "Toss pasta and shrimp in the sauce until coated."
+    ]
+  },
+  shrimp_pasta: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Cook pasta according to package directions, drain, reserving a little pasta water.",
+      "Season shrimp and sauté in a skillet with a little oil until pink, 2–3 minutes per side.",
+      "Toss shrimp with pasta, adding a splash of pasta water to loosen if needed."
+    ]
+  },
+  fried_catfish: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Pat catfish fillets dry.",
+      "Dredge fillets in breading, pressing to coat well.",
+      "Heat oil in a skillet or fryer to 350°F.",
+      "Fry fillets 3–4 minutes per side until golden and cooked through.",
+      "Drain on paper towels before serving."
+    ]
+  },
+  steamed_shrimp: {
+    cookTime: "15 min", servings: 4,
+    steps: [
+      "Fill a pot with a couple inches of water and Old Bay seasoning, bring to a boil.",
+      "Add a steamer basket with shrimp (shell on).",
+      "Cover and steam 3–5 minutes until shrimp are pink and opaque.",
+      "Sprinkle with more Old Bay and serve with melted butter."
+    ]
+  },
+  veggie_soup: {
+    cookTime: "35 min", servings: 6,
+    steps: [
+      "Add mixed vegetables to a large pot with broth or water to cover.",
+      "Bring to a boil, then reduce heat and simmer 20–25 minutes until vegetables are tender.",
+      "Season with salt, pepper, and any preferred herbs."
+    ]
+  },
+  chef_salads: {
+    cookTime: "15 min", servings: 4,
+    steps: [
+      "Chop lettuce and place in a large bowl or individual plates.",
+      "Dice ham and turkey, slice hard-boiled eggs.",
+      "Top lettuce with ham, turkey, eggs, onions, cucumbers, and tomatoes.",
+      "Sprinkle croutons on top and serve with your favorite dressing."
+    ]
+  },
+  stuffed_shells: {
+    cookTime: "50 min", servings: 6,
+    steps: [
+      "Preheat oven to 375°F. Cook shell pasta according to package directions, drain.",
+      "Brown ground beef in a skillet, drain excess fat.",
+      "Mix ricotta cheese with half the mozzarella and the cooked ground beef.",
+      "Stuff each shell with the ricotta mixture, arrange in a baking dish over a layer of pasta sauce.",
+      "Top with remaining pasta sauce and mozzarella.",
+      "Cover and bake 25–30 minutes until bubbly."
+    ]
+  },
+  blts: {
+    cookTime: "15 min", servings: 4,
+    steps: [
+      "Cook bacon in a skillet until crispy, drain on paper towels.",
+      "Toast the bread.",
+      "Layer bread with bacon, lettuce, and sliced tomatoes.",
+      "Slice and serve."
+    ]
+  },
+  baked_ziti: {
+    cookTime: "45 min", servings: 6,
+    steps: [
+      "Preheat oven to 375°F. Cook pasta according to package directions, drain.",
+      "Brown ground beef in a skillet, drain excess fat.",
+      "Stir pasta sauce into the ground beef, simmer 5 minutes.",
+      "Combine with cooked pasta and half the mozzarella cheese in a baking dish.",
+      "Top with remaining mozzarella.",
+      "Bake 20–25 minutes until bubbly and golden."
+    ]
+  },
+  hamburger_helper: {
+    cookTime: "25 min", servings: 4,
+    steps: [
+      "Brown ground beef in a large skillet, drain excess fat.",
+      "Stir in the Hamburger Helper sauce mix, milk, and the amount of water called for on the box.",
+      "Add the pasta from the box.",
+      "Bring to a boil, then reduce heat, cover, and simmer 10–12 minutes, stirring occasionally, until pasta is tender."
+    ]
+  },
+  hamburger_soup: {
+    cookTime: "35 min", servings: 6,
+    steps: [
+      "Brown ground beef in a large pot, drain excess fat.",
+      "Add mixed vegetables and enough broth or water to cover.",
+      "Bring to a boil, then reduce heat and simmer 20 minutes.",
+      "Season with salt, pepper, and any preferred herbs before serving."
+    ]
+  },
+  sloppy_joes: {
+    cookTime: "20 min", servings: 4,
+    steps: [
+      "Brown ground beef in a skillet, drain excess fat.",
+      "Stir in canned Manwich sauce, simmer 5–8 minutes.",
+      "Toast the hamburger buns.",
+      "Spoon the meat mixture onto buns and serve."
+    ]
   }
 };
