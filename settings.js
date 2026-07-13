@@ -5,7 +5,7 @@ function updateTakeoutDaysSummary(){
     plannerSettings.takeoutDays || [plannerSettings.takeoutDay || "Tuesday"];
 
   document.getElementById("takeoutDaysSummary").innerText =
-    days.join(", ");
+    days.length ? days.join(", ") : "None";
 }
 
 function saveTakeoutDaysSelection(){
@@ -13,11 +13,6 @@ function saveTakeoutDaysSelection(){
   const selected = Array.from(
     document.querySelectorAll(".settingsTakeoutDay:checked")
   ).map(box => box.value);
-
-  if(!selected.length){
-    showToast("Please choose at least one takeout day.");
-    return;
-  }
 
   plannerSettings.takeoutDays = selected;
   plannerSettings.takeoutDay = selected[0];
@@ -34,11 +29,6 @@ function savePlannerSettings(){
   plannerSettings.takeoutDays = Array.from(
     document.querySelectorAll(".settingsTakeoutDay:checked")
   ).map(box => box.value);
-
-  if(!plannerSettings.takeoutDays.length){
-    showToast("Please choose at least one takeout day.");
-    return;
-  }
 
   plannerSettings.takeoutDay = plannerSettings.takeoutDays[0];
 
