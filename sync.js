@@ -25,6 +25,7 @@ function _getSharedState() {
     customRecipes,
     shoppingListChecks,
     costSettings,
+    customMeals,
   };
 }
 
@@ -40,6 +41,7 @@ function _applySharedState(data) {
   if (Array.isArray(data.mealHistory))              saveHistory(data.mealHistory);
   if (data.customRecipes && typeof data.customRecipes === "object") customRecipes = data.customRecipes;
   if (data.shoppingListChecks && typeof data.shoppingListChecks === "object") shoppingListChecks = data.shoppingListChecks;
+  if (Array.isArray(data.customMeals)) customMeals = sanitizeCustomMeals(data.customMeals);
   if (data.costSettings && typeof data.costSettings === "object") costSettings = Object.assign({}, DEFAULT_COST_SETTINGS, data.costSettings);
 
   localStorage.setItem("currentPlan", JSON.stringify(currentPlan));
@@ -51,6 +53,7 @@ function _applySharedState(data) {
   localStorage.setItem("customRecipes", JSON.stringify(customRecipes));
   localStorage.setItem("shoppingListChecks", JSON.stringify(shoppingListChecks));
   localStorage.setItem("costSettings", JSON.stringify(costSettings));
+  localStorage.setItem("customMeals", JSON.stringify(customMeals));
 
   _applyingCloudUpdate = false;
 }

@@ -171,7 +171,7 @@ function renderMealPickerList(filterText){
   const query = (filterText || "").toLowerCase().trim();
   const groups = {};
 
-  MEALS.forEach(m => {
+  getAllMeals().forEach(m => {
     if(blocked.includes(m.id) || blocked.includes(m.meal)) return;
     if(!mealAllowedByDiet(m)) return;
     if(query && !m.meal.toLowerCase().includes(query)) return;
@@ -201,7 +201,18 @@ function renderMealPickerList(filterText){
     });
   });
 
-  document.getElementById("mealPickerList").innerHTML = html || "<p class='small'>No meals match.</p>";
+  if (!html) html = "<p class='small'>No meals match.</p>";
+
+  const trimmedFilter = (filterText || "").trim();
+  const exactMatch = getAllMeals().some(m => m.meal.toLowerCase() === query);
+
+  if (trimmedFilter && !exactMatch) {
+    html += `<div class="meal-picker-row" onclick="openCustomMealFormFromSearch()">
+      <span>➕ Add "${escapeHtml(trimmedFilter)}" as a new meal</span>
+    </div>`;
+  }
+
+  document.getElementById("mealPickerList").innerHTML = html;
 }
 
 function assignPickedMeal(mealId){

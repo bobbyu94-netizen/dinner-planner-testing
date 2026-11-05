@@ -31,6 +31,7 @@ let favorites = safeParseJSON("favorites", []);
 let blocked = safeParseJSON("blocked", []);
 let pantry = safeParseJSON("pantry", []);
 let customRecipes = safeParseJSON("customRecipes", {});
+let customMeals = sanitizeCustomMeals(safeParseJSON("customMeals", []));
 let shoppingListChecks = safeParseJSON("shoppingListChecks", {});
 
 let enabledProteins = safeParseJSON("enabledProteins", [
@@ -84,18 +85,6 @@ function loadPlan() {
   return false;
 }
 
-function getMealId(meal){
-  return meal.id || meal.meal;
-}
-
-function getMealName(meal){
-  return meal.meal || meal.name || meal.id;
-}
-
-function findMealByIdOrName(value){
-  return MEALS.find(m => m.id === value || m.meal === value || m.name === value);
-}
-
 function canUseProtein(meal, proteinCount){
   if (meal.protein === "mixed") return true;
   return (proteinCount[meal.protein] || 0) < plannerSettings.proteinLimit;
@@ -126,7 +115,9 @@ function sideAllowedByDiet(sideName){
 
 function pickMeal(usedMeals, history, proteinCount){
 
-  let options = MEALS.filter(m =>
+  const allMeals = getAllMeals();
+
+  let options = allMeals.filter(m =>
     enabledProteins.includes(m.protein) &&
     mealAllowedByDiet(m) &&
     !usedMeals.includes(m.id) &&
@@ -139,7 +130,7 @@ function pickMeal(usedMeals, history, proteinCount){
   )
 
   if (!options.length) {
-    options = MEALS.filter(m =>
+    options = allMeals.filter(m =>
       enabledProteins.includes(m.protein) &&
       mealAllowedByDiet(m) &&
       !usedMeals.includes(m.id) &&
@@ -149,14 +140,14 @@ function pickMeal(usedMeals, history, proteinCount){
   }
 
   if (!options.length) {
-    options = MEALS.filter(m => enabledProteins.includes(m.protein) &&
+    options = allMeals.filter(m => enabledProteins.includes(m.protein) &&
       mealAllowedByDiet(m) &&
       !usedMeals.includes(m.id) &&
       !usedMeals.includes(m.meal));
   }
 
   if (!options.length) {
-    options = MEALS.filter(m =>
+    options = allMeals.filter(m =>
       enabledProteins.includes(m.protein) &&
       mealAllowedByDiet(m)
     );
@@ -345,12 +336,11 @@ function showFavorites(){
     list.innerHTML = favorites.map(favoriteKey => {
       const meal = findMealByIdOrName(favoriteKey);
       const displayName = meal ? meal.meal : favoriteKey;
-      const safeKey = String(favoriteKey).replace(/'/g, "\\'");
 
       return `
         <div class="list-row">
-          ${displayName}
-          <button onclick="removeFavorite('${safeKey}')" style="margin-top:8px;">Remove</button>
+          ${escapeHtml(displayName)}
+          <button data-key="${escapeHtml(favoriteKey)}" onclick="removeFavorite(this.dataset.key)" style="margin-top:8px;">Remove</button>
         </div>
       `;
     }).join("");
@@ -376,12 +366,11 @@ function showBlockedMeals(){
     list.innerHTML = blocked.map(mealKey => {
       const meal = findMealByIdOrName(mealKey);
       const displayName = meal ? meal.meal : mealKey;
-      const safeKey = String(mealKey).replace(/'/g, "\\'");
 
       return `
         <div class="list-row">
-          ${displayName}
-          <button onclick="removeBlockedMeal('${safeKey}')" style="margin-top:8px;">Remove</button>
+          ${escapeHtml(displayName)}
+          <button data-key="${escapeHtml(mealKey)}" onclick="removeBlockedMeal(this.dataset.key)" style="margin-top:8px;">Remove</button>
         </div>
       `;
     }).join("");

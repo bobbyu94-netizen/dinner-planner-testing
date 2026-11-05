@@ -23,7 +23,7 @@
 
 <div style="font-size:12px;font-weight:700;text-align:center;margin-bottom:10px;color:#92400e;background:#fef3c7;border:1px solid #f59e0b;border-radius:999px;padding:6px 10px;">
   Testing Version
-  <div style="font-size:10px;font-weight:400;margin-top:2px;">Updated Nov 5, 2026 1:30 PM ET</div>
+  <div style="font-size:10px;font-weight:400;margin-top:2px;">Updated Nov 5, 2026 3:32 PM ET</div>
 </div>
 
 <div style="text-align:right;font-size:11px;color:var(--text-muted);min-height:16px;margin-bottom:4px;">
@@ -58,6 +58,7 @@
 <div id="mainMenuPanel" class="main-menu-panel" style="display:none;position:fixed;right:12px;top:60px;border-radius:14px;padding:10px;z-index:1004;min-width:220px;">
   <div class="menu-row" onclick="hideMainMenu(); showFavorites();">⭐ Manage Favorites</div>
   <div class="menu-row" onclick="hideMainMenu(); showBlockedMeals();">🚫 Manage Skipped Meals</div>
+  <div class="menu-row" onclick="hideMainMenu(); showCustomMeals();">🍳 My Meals</div>
   <div class="menu-row" onclick="hideMainMenu(); showPantry();">🥫 Manage Pantry</div>
   <div class="menu-row" onclick="hideMainMenu(); showCalendarPanel();">📅 Add Week to Calendar</div>
   <div class="menu-row" onclick="hideMainMenu(); showMealPreferences();">⚙️ Meal Preferences</div>
@@ -200,7 +201,7 @@
   <button onclick="savePlannerSettings()">Save Settings</button>
   <button class="secondary" onclick="hidePlannerSettings()">Cancel</button>
   <div style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:10px;">
-    Version 1.1.0
+    Version 1.2.0
   </div>
 </div>
 
@@ -289,6 +290,90 @@
 
 </div>
 
+<div id="customMealsPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1007;">
+  <h3>My Meals</h3>
+  <p class="small">Meals you add can show up in your weekly plan, search and shopping list.</p>
+
+  <button onclick="openCustomMealForm()">➕ Add a Meal</button>
+
+  <div id="customMealsList"></div>
+
+  <button class="secondary" onclick="closeCustomMeals()">Close</button>
+</div>
+
+<div id="customMealFormPanel" class="full-panel" style="display:none;position:fixed;inset:0;overflow:auto;z-index:1015;">
+  <h3 id="customMealFormTitle">Add a Meal</h3>
+
+  <label class="small">Meal Name</label>
+  <input id="customMealName" type="text" maxlength="60" placeholder="e.g. Grandma's Chili"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+
+  <label class="small">Protein</label>
+  <select id="customMealProtein" style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+    <option value="">Choose one</option>
+    <option value="ground_beef">Ground Beef</option>
+    <option value="beef">Beef</option>
+    <option value="chicken">Chicken</option>
+    <option value="pork">Pork</option>
+    <option value="seafood">Seafood</option>
+    <option value="mixed">Mixed</option>
+  </select>
+
+  <label class="small">Ingredients</label>
+  <div style="display:flex;gap:8px;margin:10px 0;">
+    <input id="customMealIngredientInput" type="text" maxlength="60" list="ingredientSuggestions"
+      placeholder="Type an ingredient"
+      onkeydown="if(event.key==='Enter'){event.preventDefault();addDraftIngredient();}"
+      style="flex:1;min-width:0;padding:12px;font-size:16px;">
+    <button type="button" onclick="addDraftIngredient()" style="width:auto;margin:0;padding:10px 16px;">Add</button>
+  </div>
+  <datalist id="ingredientSuggestions"></datalist>
+  <div id="customMealIngredients" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;"></div>
+
+  <label class="setting-check-row">
+    <input type="checkbox" id="customMealNeedsSide">
+    Add a side automatically
+  </label>
+  <p class="small">Mixed meals don't get an automatic side.</p>
+
+  <label class="small">Leftover Lunches</label>
+  <select id="customMealLeftovers" style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+    <option value="0">None</option>
+    <option value="1">1 lunch</option>
+    <option value="2">2 lunches</option>
+  </select>
+
+  <label class="small">Cost for Your Household ($, optional)</label>
+  <input id="customMealCost" type="number" min="0" step="1" inputmode="decimal"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+
+  <label class="small">Calories Per Serving (optional)</label>
+  <input id="customMealCalories" type="number" min="0" step="10" inputmode="numeric"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+
+  <details id="customMealRecipeDetails" style="margin-bottom:18px;">
+    <summary style="padding:10px 0;font-weight:600;cursor:pointer;">Recipe (optional)</summary>
+
+    <p class="small">Cook time and servings are saved when you add at least one step.</p>
+
+    <label class="small">Cook Time</label>
+    <input id="customMealCookTime" type="text" maxlength="30" placeholder="e.g. 30 min"
+      style="width:100%;padding:12px;margin:10px 0;font-size:16px;">
+
+    <label class="small">Servings</label>
+    <input id="customMealServings" type="number" min="1" inputmode="numeric"
+      style="width:100%;padding:12px;margin:10px 0;font-size:16px;">
+
+    <label class="small">Steps (one per line)</label>
+    <textarea id="customMealSteps" rows="8"
+      style="width:100%;padding:12px;margin:10px 0;font-size:16px;"></textarea>
+  </details>
+
+  <button onclick="saveCustomMeal()">Save Meal</button>
+  <button id="deleteCustomMealBtn" class="secondary" style="display:none;" onclick="deleteCustomMeal()">Delete Meal</button>
+  <button class="secondary" onclick="closeCustomMealForm()">Cancel</button>
+</div>
+
 <div id="recipePanel" class="bottom-sheet" style="display:none;position:fixed;left:0;right:0;bottom:0;max-height:85vh;overflow-y:auto;border-top-left-radius:20px;border-top-right-radius:20px;box-shadow:0 -4px 24px var(--shadow-md);z-index:1010;">
   <div style="text-align:center;padding:8px 0 4px;">
     <div style="width:36px;height:4px;background:var(--border);border-radius:4px;margin:0 auto;"></div>
@@ -331,24 +416,25 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="data.js?v23"></script>
-<script src="helpers.js?v23"></script>
-<script src="estimates.js?v23"></script>
-<script src="storage.js?v23"></script>
-<script src="ui-panels.js?v23"></script>
-<script src="calendar.js?v23"></script>
-<script src="pantry.js?v23"></script>
-<script src="preferences.js?v23"></script>
-<script src="settings.js?v23"></script>
-<script src="render.js?v23"></script>
-<script src="meal-actions.js?v23"></script>
-<script src="recipes.js?v23"></script>
-<script src="sync.js?v23"></script>
-<script src="app.js?v23"></script>
+<script src="data.js?v24"></script>
+<script src="helpers.js?v24"></script>
+<script src="estimates.js?v24"></script>
+<script src="storage.js?v24"></script>
+<script src="ui-panels.js?v24"></script>
+<script src="calendar.js?v24"></script>
+<script src="pantry.js?v24"></script>
+<script src="preferences.js?v24"></script>
+<script src="settings.js?v24"></script>
+<script src="render.js?v24"></script>
+<script src="meal-actions.js?v24"></script>
+<script src="recipes.js?v24"></script>
+<script src="custom-meals.js?v24"></script>
+<script src="sync.js?v24"></script>
+<script src="app.js?v24"></script>
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./service-worker.js?v6");
+    navigator.serviceWorker.register("./service-worker.js?v7");
   }
 </script>
 

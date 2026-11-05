@@ -76,7 +76,7 @@ else if (d.takeout) {
   html += `<div class="meal">🍔 ${escapeHtml(d.takeout)}</div>`;
 }
 else {
-  const recipeKey = d.mealId || (findMealByIdOrName(d.meal) || {}).id || null;
+  const recipeKey = (findMealByIdOrName(d.mealId || d.meal) || {}).id || null;
   html += `<div class="meal">🍽 ${recipeKey
     ? `<span class="meal-tappable" onclick="showRecipe('${recipeKey}')">${escapeHtml(d.meal)}</span>`
     : escapeHtml(d.meal)

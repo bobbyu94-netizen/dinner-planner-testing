@@ -49,8 +49,9 @@ function openRecipeEditor() {
   document.getElementById("recipeEditServings").value = recipe ? recipe.servings : "";
   document.getElementById("recipeEditSteps").value = recipe ? recipe.steps.join("\n") : "";
 
-  document.getElementById("deleteCustomRecipeBtn").style.display =
-    customRecipes[mealId] ? "block" : "none";
+  const deleteRecipeBtn = document.getElementById("deleteCustomRecipeBtn");
+  deleteRecipeBtn.style.display = customRecipes[mealId] ? "block" : "none";
+  deleteRecipeBtn.textContent = RECIPES[mealId] ? "Reset to Default" : "Remove Recipe";
 
   document.getElementById("recipeEditPanel").style.display = "block";
 }
@@ -94,5 +95,5 @@ function deleteCustomRecipe() {
 
   closeRecipeEditor();
   showRecipe(mealId);
-  showToast("Reverted to default recipe");
+  showToast(RECIPES[mealId] ? "Reverted to default recipe" : "Recipe removed");
 }

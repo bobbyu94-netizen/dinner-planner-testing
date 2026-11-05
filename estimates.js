@@ -134,21 +134,33 @@ function getDayEstimate(d){
   if (d.takeout) return {cost: costSettings.takeoutCost, calories: null};
 
   const mealRecord = findMealByIdOrName(d.mealId || d.meal);
-  const meal = mealRecord ? MEAL_ESTIMATES[mealRecord.id] : null;
+  if (!mealRecord) return null;
+
+  // A custom meal's cost is what it costs that family, so it isn't scaled
+  const isCustom = !!mealRecord.custom;
+  const meal = isCustom ? mealRecord : MEAL_ESTIMATES[mealRecord.id];
   if (!meal) return null;
 
   const side = d.side ? SIDE_ESTIMATES[d.side] : null;
+  const hasCost = typeof meal.cost === "number";
+  const hasCalories = typeof meal.calories === "number";
 
   return {
-    cost: scaleCost(meal.cost + (side ? side.cost : 0)),
-    calories: meal.calories + (side ? side.calories : 0)
+    cost: hasCost
+      ? (isCustom ? meal.cost : scaleCost(meal.cost)) + (side ? scaleCost(side.cost) : 0)
+      : null,
+    calories: hasCalories ? meal.calories + (side ? side.calories : 0) : null
   };
 }
 
 function formatDayEstimate(estimate){
   if (!estimate) return "";
-  const cost = "~$" + Math.round(estimate.cost);
-  return estimate.calories === null ? cost : cost + " · " + estimate.calories + " cal";
+
+  const parts = [];
+  if (estimate.cost !== null) parts.push("~$" + Math.round(estimate.cost));
+  if (estimate.calories !== null) parts.push(estimate.calories + " cal");
+
+  return parts.join(" · ");
 }
 
 // Returns {total, missing}: the week's total and how many days have no estimate.
@@ -158,7 +170,7 @@ function getWeekEstimate(plan){
 
   plan.forEach(d => {
     const estimate = getDayEstimate(d);
-    if (estimate) total += estimate.cost;
+    if (estimate && estimate.cost !== null) total += estimate.cost;
     else missing++;
   });
 

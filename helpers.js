@@ -20,8 +20,12 @@ function getMealName(meal){
   return meal.meal || meal.name || meal.id;
 }
 
+function getAllMeals(){
+  return MEALS.concat(customMeals);
+}
+
 function findMealByIdOrName(value){
-  return MEALS.find(m => m.id === value || m.meal === value || m.name === value);
+  return getAllMeals().find(m => m.id === value || m.meal === value || m.name === value);
 }
 
 function showToast(message){
