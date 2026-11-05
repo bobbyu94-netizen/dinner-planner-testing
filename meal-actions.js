@@ -128,6 +128,7 @@ function setDateNight(day){
     dateNight: true
   };
 
+  savePlan();
   closeMenu();
   render();
 }

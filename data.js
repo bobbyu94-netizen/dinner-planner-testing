@@ -51,7 +51,7 @@ const MEALS = [
   {id:"smoked_sausage", meal:"Smoked Sausage", protein:"pork", items:["Smoked sausage"]},
   {id:"fried_potatoes_sausage", meal:"Fried Potatoes w Sausage", protein:"pork", items:["Smoked sausage","Potatoes","Onions"], leftovers:1, complete:true},
   {id:"hot_dogs", meal:"Hot Dogs", protein:"pork", items:["Hot dogs","Buns","American cheese","Onions"]},
-  {id:"chili_dogs", meal:"Chili Dogs", protein:"pork", items:["Hot dogs","Chili","American cheese","Onions"]},
+  {id:"chili_dogs", meal:"Chili Dogs", protein:"pork", items:["Hot dogs","Buns","Chili","American cheese","Onions"]},
   {id:"breakfast_for_dinner", meal:"Breakfast for Dinner", protein:"pork", items:["Bacon","Eggs","Biscuits","Gravy"], complete:true},
   {id:"red_beans_rice", meal:"Red Beans & Rice", protein:"pork", items:["Smoked sausage","Rice","Red beans"], leftovers:1, complete:true},
   {id:"cajun_sausage_pasta", meal:"Cajun Sausage Pasta", protein:"pork", items:["Smoked sausage","Pasta","Heavy whipping cream","Parmesan cheese","Cajun seasoning"], leftovers:1, complete:true},

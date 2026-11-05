@@ -101,7 +101,14 @@ function getGroceryItems(){
     if (d.sideItems) grocery.push(...d.sideItems);
   });
 
-  return [...new Set(grocery)];
+  // Treat "Pasta sauce" and "Pasta Sauce" as the same item
+  const seen = new Set();
+  return grocery.filter(item => {
+    const key = item.trim().toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function renderGroceryList(){
