@@ -44,6 +44,8 @@ let enabledProteins = safeParseJSON("enabledProteins", [
 
 let dietRestrictions = safeParseJSON("dietRestrictions", []);
 
+let costSettings = Object.assign({}, DEFAULT_COST_SETTINGS, safeParseJSON("costSettings", {}));
+
 let plannerSettings = safeParseJSON("plannerSettings", null);
 
 if (!plannerSettings || plannerSettings.version !== DEFAULT_PLANNER_SETTINGS.version) {

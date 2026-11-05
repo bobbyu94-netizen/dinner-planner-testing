@@ -52,6 +52,18 @@ function savePlannerSettings(){
     JSON.stringify(plannerSettings)
   );
 
+  const householdSize = parseInt(document.getElementById("settingsHouseholdSize").value, 10);
+  const takeoutCost = parseFloat(document.getElementById("settingsTakeoutCost").value);
+  const dateNightCost = parseFloat(document.getElementById("settingsDateNightCost").value);
+
+  if (householdSize >= 1) costSettings.householdSize = householdSize;
+  if (takeoutCost >= 0) costSettings.takeoutCost = takeoutCost;
+  if (dateNightCost >= 0) costSettings.dateNightCost = dateNightCost;
+
+  localStorage.setItem("costSettings", JSON.stringify(costSettings));
+  pushToCloud();
+  render();
+
   applyDarkMode(
     document.getElementById("settingsDarkMode").checked ? "dark" : "auto"
   );

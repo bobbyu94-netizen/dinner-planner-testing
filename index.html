@@ -23,7 +23,7 @@
 
 <div style="font-size:12px;font-weight:700;text-align:center;margin-bottom:10px;color:#92400e;background:#fef3c7;border:1px solid #f59e0b;border-radius:999px;padding:6px 10px;">
   Testing Version
-  <div style="font-size:10px;font-weight:400;margin-top:2px;">Updated Nov 5, 2026 1:29 PM ET</div>
+  <div style="font-size:10px;font-weight:400;margin-top:2px;">Updated Nov 5, 2026 1:30 PM ET</div>
 </div>
 
 <div style="text-align:right;font-size:11px;color:var(--text-muted);min-height:16px;margin-bottom:4px;">
@@ -41,6 +41,8 @@
   </button>
 
 </div>
+
+<div id="weekEstimate" style="font-weight:600;margin:14px 2px 10px;"></div>
 
 <div id="planner"></div>
 
@@ -111,7 +113,7 @@
   <h3>Planner Settings</h3>
 
   <p class="small">
-    Adjust your planner defaults here. These settings only affect this device.
+    Adjust your planner defaults here. Unless noted, these settings only affect this device.
   </p>
 
   <label class="setting-check-row">
@@ -174,10 +176,31 @@
   <input id="settingsHistoryLength" type="number" min="1" max="100"
     style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
 
+  <h4>Cost Estimates</h4>
+
+  <p class="small">
+    These settings are shared with your household. Cooked meal costs change with household size. Takeout and Date Night stay flat.
+  </p>
+
+  <label class="small">Household Size</label>
+
+  <input id="settingsHouseholdSize" type="number" min="1" max="20" inputmode="numeric"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+
+  <label class="small">Takeout Cost Per Night ($)</label>
+
+  <input id="settingsTakeoutCost" type="number" min="0" step="1" inputmode="decimal"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+
+  <label class="small">Date Night Cost ($)</label>
+
+  <input id="settingsDateNightCost" type="number" min="0" step="1" inputmode="decimal"
+    style="width:100%;padding:12px;margin:10px 0 18px 0;font-size:16px;">
+
   <button onclick="savePlannerSettings()">Save Settings</button>
   <button class="secondary" onclick="hidePlannerSettings()">Cancel</button>
   <div style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:10px;">
-    Version 1.0.2
+    Version 1.1.0
   </div>
 </div>
 
@@ -308,23 +331,24 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="data.js?v22"></script>
-<script src="helpers.js?v22"></script>
-<script src="storage.js?v22"></script>
-<script src="ui-panels.js?v22"></script>
-<script src="calendar.js?v22"></script>
-<script src="pantry.js?v22"></script>
-<script src="preferences.js?v22"></script>
-<script src="settings.js?v22"></script>
-<script src="render.js?v22"></script>
-<script src="meal-actions.js?v22"></script>
-<script src="recipes.js?v22"></script>
-<script src="sync.js?v22"></script>
-<script src="app.js?v22"></script>
+<script src="data.js?v23"></script>
+<script src="helpers.js?v23"></script>
+<script src="estimates.js?v23"></script>
+<script src="storage.js?v23"></script>
+<script src="ui-panels.js?v23"></script>
+<script src="calendar.js?v23"></script>
+<script src="pantry.js?v23"></script>
+<script src="preferences.js?v23"></script>
+<script src="settings.js?v23"></script>
+<script src="render.js?v23"></script>
+<script src="meal-actions.js?v23"></script>
+<script src="recipes.js?v23"></script>
+<script src="sync.js?v23"></script>
+<script src="app.js?v23"></script>
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./service-worker.js?v5");
+    navigator.serviceWorker.register("./service-worker.js?v6");
   }
 </script>
 

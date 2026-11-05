@@ -41,6 +41,18 @@ function categorize(item){
   return "Other";
 }
 
+function renderWeekEstimate(){
+  const el = document.getElementById("weekEstimate");
+  const week = getWeekEstimate(currentPlan);
+
+  let text = "Estimated dinners this week: ~$" + Math.round(week.total);
+  if (week.missing) {
+    text += " · " + week.missing + (week.missing === 1 ? " meal has" : " meals have") + " no cost";
+  }
+
+  el.textContent = text;
+}
+
 function render(){
   let html = "";
 
@@ -75,6 +87,11 @@ else {
   }
 }
 
+const dayEstimate = formatDayEstimate(getDayEstimate(d));
+if (dayEstimate) {
+  html += `<div style="font-size:13px;color:var(--text-muted);margin-top:4px;">${escapeHtml(dayEstimate)}</div>`;
+}
+
 
 html += `</div>`
 
@@ -88,6 +105,8 @@ html += `</div>`;
   });
 
   document.getElementById("planner").innerHTML = html;
+
+  renderWeekEstimate();
 
   renderGroceryList();
 }

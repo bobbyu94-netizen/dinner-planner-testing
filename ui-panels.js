@@ -54,6 +54,9 @@ document.getElementById("settingsHistoryLength").value =
   plannerSettings.historyLength ?? 24;
   document.getElementById("settingsWeekStartDay").value =
   plannerSettings.weekStartDay || "Thursday";
+  document.getElementById("settingsHouseholdSize").value = costSettings.householdSize;
+  document.getElementById("settingsTakeoutCost").value = costSettings.takeoutCost;
+  document.getElementById("settingsDateNightCost").value = costSettings.dateNightCost;
   document.getElementById("plannerSettingsPanel").style.display = "block";
 }
 

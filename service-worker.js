@@ -1,4 +1,4 @@
-const CACHE_NAME = "dinner-planner-v5";
+const CACHE_NAME = "dinner-planner-v6";
 
 const ASSETS = [
   "./",
@@ -7,6 +7,7 @@ const ASSETS = [
   "./manifest.json",
   "./data.js",
   "./helpers.js",
+  "./estimates.js",
   "./storage.js",
   "./ui-panels.js",
   "./calendar.js",
