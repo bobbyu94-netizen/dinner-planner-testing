@@ -177,6 +177,12 @@ function pickMeal(usedMeals, history, proteinCount){
     }
   })
 
+  // Shuffle first so meals with the same pantry score are in random order
+  for (let i = scored.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [scored[i], scored[j]] = [scored[j], scored[i]];
+  }
+
   // Sort best matches first
   scored.sort((a,b) => b.score - a.score)
 
